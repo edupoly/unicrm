@@ -1,0 +1,40 @@
+{
+    "name": "unicrm",
+    "version": "1.0.0",
+    "description": "Plug and Play CRM",
+    "keywords": [
+        "CRM",
+        "RBAC"
+    ],
+    "homepage": "https://github.com/edupoly/unicrm#readme",
+    "bugs": {
+        "url": "https://github.com/edupoly/unicrm/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/edupoly/unicrm.git"
+    },
+    "license": "ISC",
+    "author": "Harsha Vardhan Prudvinath",
+    "type": "commonjs",
+    "main": "index.js",
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@prisma/client": "^7.8.0",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "json-web-token": "^4.0.1",
+        "morgan": "^1.11.0",
+        "pg": "^8.22.0",
+        "prisma": "^6.19.3",
+        "zod": "^4.4.3"
+    }
+}
