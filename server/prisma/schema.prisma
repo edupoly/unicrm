@@ -9,15 +9,14 @@ generator client {
 
 // 1. TENANT MANAGEMENT
 model Tenant {
-  id           String    @id @default(uuid()) @db.Uuid
-  businessName String    @db.VarChar(255)
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
+  id           String     @id @default(uuid()) @db.Uuid
+  businessName String     @db.VarChar(255)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
 
   users        User[]
   roles        Role[]
-  products     Product[]
-  services     Service[]
+  items        Item[]     // Unified reference to all company offerings
   customers    Customer[]
   invoices     Invoice[]
 
@@ -26,22 +25,21 @@ model Tenant {
 
 // 2. USER ENGINE (Employees & Owners)
 model User {
-  id           String    @id @default(uuid()) @db.Uuid
-  tenantId     String    @db.Uuid @map("tenant_id")
-  name         String    @db.VarChar(255)
-  email        String    @db.VarChar(255)
-  passwordHash String    @map("password_hash") @db.VarChar(255)
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
+  id           String     @id @default(uuid()) @db.Uuid
+  tenantId     String     @db.Uuid @map("tenant_id")
+  name         String     @db.VarChar(255)
+  mobileNumber String     @map("mobile_number") @db.VarChar(20)
+  email        String     @db.VarChar(255)
+  passwordHash String     @map("password_hash") @db.VarChar(255)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
   
-  // The universal escape hatch for employee-specific extra info
-  customFields Json      @default("{}") @map("custom_fields")
+  customFields Json       @default("{}") @map("custom_fields")
 
-  tenant       Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant       Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   userRoles    UserRole[]
   invoices     Invoice[]
 
-  // Ensures email is unique ONLY within the same business tenant
   @@unique([tenantId, email])
   @@map("users")
 }
@@ -63,8 +61,8 @@ model Role {
 
 model Permission {
   id              String           @id @default(uuid()) @db.Uuid
-  name            String           @db.VarChar(100) // e.g., "create"
-  resource        String           @db.VarChar(100) // e.g., "products"
+  name            String           @db.VarChar(100)
+  resource        String           @db.VarChar(100)
   description     String?          @db.Text
 
   rolePermissions RolePermission[]
@@ -73,7 +71,6 @@ model Permission {
   @@map("permissions")
 }
 
-// Junction Tables using ON DELETE CASCADE to automatically clean up assignments
 model UserRole {
   userId String @db.Uuid @map("user_id")
   roleId String @db.Uuid @map("role_id")
@@ -90,69 +87,90 @@ model RolePermission {
   permissionId String     @db.Uuid @map("permission_id")
 
   role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  // Protects core system permissions from accidental cascading deletions
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Restrict)
 
   @@id([roleId, permissionId])
   @@map("role_permissions")
 }
 
-// 4. CORE OPERATIONAL MODULES
-model Product {
-  id                 String        @id @default(uuid()) @db.Uuid
-  tenantId           String        @db.Uuid @map("tenant_id")
-  name               String        @db.VarChar(255)
-  sku                String?       @db.VarChar(100)
-  costPrice          Decimal       @map("cost_price") @db.Decimal(12, 2)
-  sellingPrice       Decimal       @map("selling_price") @db.Decimal(12, 2)
-  stockQuantity      Int           @default(0) @map("stock_quantity")
-  discountPercentage Decimal       @default(0.00) @map("discount_percentage") @db.Decimal(5, 2)
-  isOnSale           Boolean       @default(true) @map("is_on_sale")
-  createdAt          DateTime      @default(now()) @map("created_at")
-  
-  customFields       Json          @default("{}") @map("custom_fields")
+// 4. CORE OPERATIONAL MODULES (Inheritance Architecture)
 
-  tenant             Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  invoiceItems       InvoiceItem[]
-
-  @@map("products")
+enum ItemType {
+  PRODUCT
+  SERVICE
 }
 
-model Service {
-  id           String        @id @default(uuid()) @db.Uuid
-  tenantId     String        @db.Uuid @map("tenant_id")
-  name         String        @db.VarChar(255)
-  basePrice    Decimal       @map("base_price") @db.Decimal(12, 2)
-  durationMin  Int           @map("duration_minutes")
-  isAvailable  Boolean       @default(true) @map("is_available")
-  createdAt    DateTime      @default(now()) @map("created_at")
+// Parent table carrying the foundational, financial, and analytical data
+model Item {
+  id                 String       @id @default(uuid()) @db.Uuid
+  tenantId           String       @db.Uuid @map("tenant_id")
+  name               String       @db.VarChar(255)
+  sku                String?      @db.VarChar(100)
+  basePrice          Decimal      @map("base_price") @db.Decimal(12, 2)
+  itemType           ItemType     @map("item_type")
+  createdAt          DateTime     @default(now()) @map("created_at")
+  customFields       Json         @default("{}") @map("custom_fields")
+
+  tenant             Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  invoiceItems       InvoiceItem[]
   
-  customFields Json          @default("{}") @map("custom_fields")
+  // 1:1 Extended Relations
+  productDetails     ProductDetail?
+  serviceDetails     ServiceDetail?
 
-  tenant       Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  invoiceItems InvoiceItem[]
+  @@unique([tenantId, sku]) // Ensures SKU uniqueness per tenant when provided
+  @@index([tenantId, itemType]) // Index for fast dashboard performance counters
+  @@map("items")
+}
 
-  @@map("services")
+// Child table holding details unique strictly to physical items
+model ProductDetail {
+  itemId             String       @id @db.Uuid @map("item_id")
+  costPrice          Decimal      @map("cost_price") @db.Decimal(12, 2)
+  stockQuantity      Int          @default(0) @map("stock_quantity")
+  discountPercentage Decimal      @default(0.00) @map("discount_percentage") @db.Decimal(5, 2)
+  isOnSale           Boolean      @default(true) @map("is_on_sale")
+  
+  // Product-specific metadata (e.g., {"weight": "2kg", "dimensions": "10x10x10"})
+  customFields       Json         @default("{}") @map("custom_fields")
+
+  item               Item         @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@map("product_details")
+}
+
+// Child table holding details unique strictly to time/delivery services
+model ServiceDetail {
+  itemId             String       @id @db.Uuid @map("item_id")
+  durationMin        Int          @map("duration_minutes")
+  isAvailable        Boolean      @default(true) @map("is_available")
+  
+  // Service-specific metadata (e.g., {"travel_required": true, "skills": ["nodejs"]})
+  customFields       Json         @default("{}") @map("custom_fields")
+
+  item               Item         @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@map("service_details")
 }
 
 model Customer {
-  id           String    @id @default(uuid()) @db.Uuid
-  tenantId     String    @db.Uuid @map("tenant_id")
-  mobileNumber String    @map("mobile_number") @db.VarChar(20)
-  fullName     String    @map("full_name") @db.VarChar(255)
-  address      String?   @db.Text
-  createdAt    DateTime  @default(now()) @map("created_at")
+  id           String     @id @default(uuid()) @db.Uuid
+  tenantId     String     @db.Uuid @map("tenant_id")
+  mobileNumber String     @map("mobile_number") @db.VarChar(20)
+  fullName     String     @map("full_name") @db.VarChar(255)
+  address      String?    @db.Text
+  createdAt    DateTime   @default(now()) @map("created_at")
   
-  customFields Json      @default("{}") @map("custom_fields")
+  customFields Json       @default("{}") @map("custom_fields")
 
-  tenant       Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant       Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   invoices     Invoice[]
 
   @@unique([tenantId, mobileNumber])
   @@map("customers")
 }
 
-// 5. BILLING ENGINE (Header-Detail Structure)
+// 5. BILLING ENGINE (Clean & Line-Item Agnostic)
 model Invoice {
   id            String        @id @default(uuid()) @db.Uuid
   tenantId      String        @db.Uuid @map("tenant_id")
@@ -165,6 +183,7 @@ model Invoice {
   totalPayable  Decimal       @map("total_payable") @db.Decimal(12, 2)
   status        String        @db.VarChar(20) // "PAID", "PENDING", "REFUNDED"
   createdAt     DateTime      @default(now()) @map("created_at")
+  customFields   Json         @default("{}") @map("custom_fields")
 
   tenant        Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   customer      Customer      @relation(fields: [customerId], references: [id], onDelete: Restrict)
@@ -176,17 +195,15 @@ model Invoice {
 }
 
 model InvoiceItem {
-  id        String   @id @default(uuid()) @db.Uuid
-  invoiceId String   @db.Uuid @map("invoice_id")
-  productId String?  @db.Uuid @map("product_id")
-  serviceId String?  @db.Uuid @map("service_id")
-  quantity  Int
-  unitPrice Decimal  @map("unit_price") @db.Decimal(12, 2)
-  totalPrice Decimal @map("total_price") @db.Decimal(12, 2)
+  id         String   @id @default(uuid()) @db.Uuid
+  invoiceId  String   @db.Uuid @map("invoice_id")
+  itemId     String?  @db.Uuid @map("item_id") // Completely unified relation pointer
+  quantity   Int
+  unitPrice  Decimal  @map("unit_price") @db.Decimal(12, 2)
+  totalPrice Decimal  @map("total_price") @db.Decimal(12, 2)
 
-  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
-  service   Service? @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  invoice    Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  item       Item?    @relation(fields: [itemId], references: [id], onDelete: SetNull)
 
   @@map("invoice_items")
 }
