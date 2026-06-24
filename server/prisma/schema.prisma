@@ -41,6 +41,7 @@ model User {
   invoices     Invoice[]
 
   @@unique([tenantId, email])
+  @@unique([tenantId, mobileNumber])
   @@map("users")
 }
 
@@ -204,6 +205,7 @@ model InvoiceItem {
 
   invoice    Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   item       Item?    @relation(fields: [itemId], references: [id], onDelete: SetNull)
-
+  
+  @@unique([invoiceId, itemId]) // Enforces uniqueness while keeping a separate row ID
   @@map("invoice_items")
 }
