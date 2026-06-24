@@ -20,7 +20,10 @@ function ask(question) {
         const password = await ask("Postgres Password: ");
         const host = await ask("Postgres Host (localhost): ") || "localhost";
 
-        const envContent = `DATABASE_URL="postgresql://${username}:${password}@${host}:5432/uni_crm?schema=public"`;
+        const envContent = `
+        DATABASE_URL=postgresql://${username}:${password}@${host}:5432/uni_crm?schema=public
+        PORT=4444
+        `;
 
         fs.writeFileSync(envPath, envContent);
         console.log(".env created");

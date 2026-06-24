@@ -3,9 +3,10 @@
 ## **Prerequisites:** You need to collect your ``PostgreSQL DBMS username, password, hostname`` and also create a database called ``uni_crm``.
 
 ## **There are 2 ways to setup the project:**
-### **1. Follow this automated setup step: Clone this repo and ** Just run ``npm install`` from the root folder. Everything goes in the flow.
+### **1. Follow this 2 steps (Semi-Automated Setup):**
+#### Clone this repo: ``git clone https://github.com/edupoly/unicrm.git`` and just run ``npm install`` from the root folder. Everything goes in the flow!
 ---
-### **2. Follow these manual setup steps:**
+### **2. Follow these steps (Manual Setup):**
 #### i. Clone the repo ``git clone https://github.com/edupoly/unicrm.git``.
 #### ii. Install the node_modules from the root of the repo.
 #### iii. Get your PostgreSQL DB connection string and create a ``.env file in server/`` and keep the connection string as prop ``DATABASE_URL="postgresql://<username>:<password>@<hostname>:5432/uni_crm?schema=public"``.
