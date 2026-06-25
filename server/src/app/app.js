@@ -15,6 +15,6 @@ app.use(morgan('dev'));
 app.use('/auth', authRouter);
 
 // error handler
-// app.use(errorHandler);
+app.use(errorHandler);
 
 module.exports = app;
