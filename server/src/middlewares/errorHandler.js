@@ -4,19 +4,24 @@ const { PrismaClientKnownRequestError, PrismaClientValidationError } = require("
 const sendResponse = require("../utils/sendResponse");
 const getZodErrors = require("../utils/getZodErrors");
 
+const { INVALID_REQUEST } = require("../errors/common/commonValidation");
+
 const errorHandler = (err, req, res, next) => {
     if (err instanceof ZodError) {
         const zodValidationErrors = getZodErrors(err.issues);
-        return sendResponse(res, 400, false, 'Given inputs are invalid', null, zodValidationErrors);
+        return sendResponse(res, 400, false, INVALID_REQUEST, null, zodValidationErrors);
     }
+
     else if (err instanceof PrismaClientKnownRequestError) {
         if (err.code === 'P2025') {
             return sendResponse(res, 404, false, `${err.meta.modelName} not found`);
         }
     }
+
     else if (err instanceof PrismaClientValidationError) {
-        return sendResponse(res, 400, false, 'The request is invalid');
+        return sendResponse(res, 400, false, INVALID_REQUEST);
     }
+
     return sendResponse(res, 500, false, 'Something went wrong in the Server!');
 };
 

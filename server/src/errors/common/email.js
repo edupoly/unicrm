@@ -1,6 +1,6 @@
 const emailValidationErrors = {
-    REQUIRED_EMAIL: 'Email is Required',
-    INVALID_EMAIL: 'Email is invalid'
+    REQUIRED_EMAIL: 'Enter an email id',
+    INVALID_EMAIL: 'Enter a valid email id'
 };
 
 module.exports = emailValidationErrors;

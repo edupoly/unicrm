@@ -1,35 +1,62 @@
+const bcrypt = require('bcrypt');
+
 const prismaDB = require("../../config/database");
 
 const sendResponse = require("../../utils/sendResponse");
 
-// Issue: Allow the users to login through either (email & password) | (mobileNumber & password)
 const login = async (req, res, next) => {
-    const { tenantId, role, mobileNumber, email, password } = req.body;
 
-    const user = await prismaDB.user.findUniqueOrThrow({
-        where: {
-            tenantId_email: { tenantId, email },
-            tenantId_mobileNumber: `{ tenantId, mobileNumber }`,
-            passwordHash: password
-        },
+    const { identifier, password } = req.body;
+
+    const isEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(identifier);
+
+    const emailOrMobileNumber = isEmail
+        ? { email: identifier }
+        : { mobileNumber: identifier };
+
+
+    const users = await prismaDB.user.findMany({
+        where: emailOrMobileNumber,
         include: {
             userRoles: {
                 include: {
                     role: {
                         include: {
-                            rolePermissions: true
+                            rolePermissions: {
+                                include: {
+                                    permission: {
+                                        select: {
+                                            name: true,
+                                            resource: true
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }
+            },
+            tenant: true
         }
     });
 
-    const { id, roleId, role: { rolePermissions: permissions } } = user.userRoles.find(userRole => {
-        return userRole.role.name === role;
-    });
+    const validUsers = users.filter(user => bcrypt.compareSync(password, user.passwordHash));
 
-    return sendResponse(res, 200, true, 'User authenticated successfully', user, null);
+    if (validUsers.length === 1) {
+        const { id, name, email, tenant: { tenantId, businessName }, userRoles } = validUsers[0];
+
+        const roles = userRoles.map(userRole => userRole.role.name);
+
+        const permissions = userRoles.map(userRole => userRole.role.rolePermissions.map(p => p.permission)).flat(1);
+
+        return sendResponse(res, 200, true, 'Login Successfull', {
+            name,
+            email,
+            businessName,
+            roles,
+            permissions
+        });
+    }
 };
 
 module.exports = login;
