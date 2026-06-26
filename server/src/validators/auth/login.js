@@ -4,8 +4,8 @@ const { REQUIRED_OBJECT } = require('../../errors/common/commonValidation');
 
 const emailOrMobileNumberValidator = require('../common/emailOrMobileNumber');
 const passwordValidator = require('../common/password');
-
-const companyValidator = require('../common/company');
+const tenantIdValidator = require('../uuid/tenantId');
+const businessNameValidator = require('../common/businessName');
 
 
 const loginValidator = z.object({
@@ -15,7 +15,8 @@ const loginValidator = z.object({
 
 
 const verifyUserCompanyValidator = z.object({
-    company: companyValidator
+    tenantId: tenantIdValidator,
+    businessName: businessNameValidator
 }, { message: REQUIRED_OBJECT });
 
 

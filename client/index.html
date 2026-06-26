@@ -18,14 +18,15 @@
         //     body: JSON.stringify({ identifier: '9014709040', password: 'venkymowa' })
         // }).then(res => console.log(res.json()));
 
-        // fetch('http://localhost:4444/auth/login/verify-user-company', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-type': 'application/json'
-        //     },
-        //     credentials: "include",
-        //     body: JSON.stringify({ company: 'Mowa Medicals' })
-        // }).then(res => console.log(res.json()));
+        fetch('http://localhost:4444/auth/login/verify-user-company', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            credentials: "include",
+            body: JSON.stringify(
+                { tenantId: 'e9334b5c-d46c-4de6-a801-9f0915a0668e', businessName: 'Mowa Automobiles' })
+        }).then(res => console.log(res.json()));
     </script>
 </body>
 

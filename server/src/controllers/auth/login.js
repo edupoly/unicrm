@@ -61,7 +61,9 @@ const login = async (req, res, next) => {
 
     // If multiple users exists then ask users to select the tenant
     else if (isMultipleUsersExists) {
-        const companies = validUsers.map(user => user.tenant.businessName);
+        const companies = validUsers.map(user =>
+            ({ tenantId: user.tenant.id, businessName: user.tenant.businessName })
+        );
 
         const jwtPayload = validUsers.map(user => ({
             userId: user.id,
@@ -79,7 +81,7 @@ const login = async (req, res, next) => {
 
 // Only if multiple users exists: Verify the selected company and create the session
 const verifyUserCompany = async (req, res, next) => {
-    const { company } = req.body;
+    const { tenantId, businessName } = req.body;
 
     const { select_org } = req.cookies;
 
@@ -90,7 +92,7 @@ const verifyUserCompany = async (req, res, next) => {
     const { accounts: userCompanies } = jwt.verify(select_org, JWT_SECRET_KEY);
 
     const selectedCompany = userCompanies.find(
-        userCompany => userCompany.businessName === company
+        userCompany => userCompany.tenantId === tenantId && userCompany.businessName === businessName
     );
 
     if (!selectedCompany) {
@@ -99,7 +101,7 @@ const verifyUserCompany = async (req, res, next) => {
 
     const user = await findUser(selectedCompany.userId, selectedCompany.tenantId);
 
-    const { id, name, email, tenantId, businessName, roles, permissions } = extractUserData(user);
+    const { id, name, email, roles, permissions } = extractUserData(user);
 
     const jwtToken = jwt.sign(
         { userId: id, tenantId, permissions },

@@ -42,9 +42,11 @@ authRouter.post('/login', validation(loginValidator), login);
 //   "success": true,
 //   "message": "Select the company you want to login",
 //   "data": {
-//     "companies": ["Apex Tech Solutions", "Vertex Global"]
+//     "companies": [{tenantId,businessName:"Apex Tech Solutions"},
+//                   {tenantId,businessName:""Vertex Global""}]
 //   }
 // }
+// =================================================================
 
 
 authRouter.post('/login/verify-user-company',
@@ -58,7 +60,8 @@ authRouter.post('/login/verify-user-company',
 // FRONTEND REQUEST BODY:
 // Sends the 'select_org' cookie automatically along with this body:
 // {
-//   "tenantId": "uuid-tenant-111"    // The specific company ID selected by the user
+//   "tenantId": "uuid-tenant-111",    // The specific company ID selected by the user
+//   "businessName": "Apex Tech Solutions"
 // }
 
 // BACKEND RESPONSE:
@@ -73,8 +76,9 @@ authRouter.post('/login/verify-user-company',
 //     "email": "alex@email.com",
 //     "businessName": "Apex Tech Solutions",
 //     "roles": ["Manager"],
-//     "permissions": [{"name":"create", "resource":"products", "name":"read","resource":"products"]
+//     "permissions": [{"name":"create", "resource":"products"}, {"name":"read","resource":"products"}]
 //   }
 // }
+// =================================================================
 
 module.exports = authRouter;
