@@ -1,12 +1,14 @@
 const { ZodError } = require("zod");
 const { PrismaClientKnownRequestError, PrismaClientValidationError } = require("@prisma/client/runtime/library");
 
-const sendResponse = require("../utils/sendResponse");
-const getZodErrors = require("../utils/getZodErrors");
+const sendResponse = require("../utils/common/sendResponse");
+const getZodErrors = require("../utils/common/getZodErrors");
 
 const { INVALID_REQUEST } = require("../errors/common/commonValidation");
 
 const errorHandler = (err, req, res, next) => {
+    console.log(err);
+    
     if (err instanceof ZodError) {
         const zodValidationErrors = getZodErrors(err.issues);
         return sendResponse(res, 400, false, INVALID_REQUEST, null, zodValidationErrors);

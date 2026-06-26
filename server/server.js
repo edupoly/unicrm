@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = require('./src/app/app');
-const sendResponse = require('./src/utils/sendResponse');
+const sendResponse = require('./src/utils/common/sendResponse');
 
 const { PORT } = process.env;
 

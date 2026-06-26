@@ -6,6 +6,10 @@ module.exports = prismaDB;
 
 // const tenantId = 'a7865a05-e67b-4609-970d-aa8393b14204';
 
+// const autoTenantId = 'e9334b5c-d46c-4de6-a801-9f0915a0668e';
+// const partnerId = '8d298c69-22f8-4519-a843-c1a7b032d8e3';
+// const autoUserId = '9984b8b3-b9f5-40d3-acbc-9d39d704fbd2';
+
 // // staff
 // const medicineStaffId = '57b252d6-ef3d-4fef-bdb9-d059b1b2da88';
 // const STAFF_ID = 'ccb795ff-21b0-4fc6-b65b-3a993c496182';
@@ -16,231 +20,11 @@ module.exports = prismaDB;
 // const roleId = 'ee51907c-7cb3-4a0c-ad71-e6fe0e4ddba6';
 // const userId = '57aa13fc-65ab-4b35-8d4a-a19541dc1e77';
 // const email = 'venky@mowa.com';
-// const passwordHash = 'venkymowa';
+// const passwordHash = '$2b$10$CL3MvfBjg3Z.dlAxU89V0Oy8EhqyCwFlvPBPraCV7qmV.O1uZFif2';
 // const mobileNumber = '9014709040';
 
 // async function seeding() {
-//     const allPermissions = await prisma.permission.findMany();
-
-//     const medicalItems = [
-//         // PRODUCTS
-//         {
-//             tenantId,
-//             name: "Paracetamol 500mg Tablets",
-//             sku: "MED-PARA-500",
-//             basePrice: 25.0,
-//             itemType: "PRODUCT",
-//             customFields: {
-//                 category: "Medicine",
-//                 manufacturer: "ABC Pharma"
-//             },
-//             productDetails: {
-//                 create: {
-//                     costPrice: 18.0,
-//                     stockQuantity: 500,
-//                     discountPercentage: 5.0,
-//                     isOnSale: true,
-//                     customFields: {
-//                         dosage: "500mg",
-//                         packSize: "10 Tablets"
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Digital Thermometer",
-//             sku: "MED-THERMO-001",
-//             basePrice: 299.0,
-//             itemType: "PRODUCT",
-//             customFields: {
-//                 category: "Medical Equipment"
-//             },
-//             productDetails: {
-//                 create: {
-//                     costPrice: 220.0,
-//                     stockQuantity: 75,
-//                     discountPercentage: 10.0,
-//                     isOnSale: true,
-//                     customFields: {
-//                         warranty: "1 Year",
-//                         type: "Digital"
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Blood Pressure Monitor",
-//             sku: "MED-BP-001",
-//             basePrice: 1499.0,
-//             itemType: "PRODUCT",
-//             customFields: {
-//                 category: "Medical Equipment"
-//             },
-//             productDetails: {
-//                 create: {
-//                     costPrice: 1200.0,
-//                     stockQuantity: 40,
-//                     discountPercentage: 8.0,
-//                     isOnSale: true,
-//                     customFields: {
-//                         warranty: "2 Years",
-//                         cuffSize: "22-42 cm"
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Surgical Gloves Box",
-//             sku: "MED-GLOVE-001",
-//             basePrice: 450.0,
-//             itemType: "PRODUCT",
-//             customFields: {
-//                 category: "Consumables"
-//             },
-//             productDetails: {
-//                 create: {
-//                     costPrice: 350.0,
-//                     stockQuantity: 120,
-//                     discountPercentage: 0.0,
-//                     isOnSale: true,
-//                     customFields: {
-//                         quantity: "100 Gloves",
-//                         material: "Latex"
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Face Mask Pack",
-//             sku: "MED-MASK-001",
-//             basePrice: 150.0,
-//             itemType: "PRODUCT",
-//             customFields: {
-//                 category: "Consumables"
-//             },
-//             productDetails: {
-//                 create: {
-//                     costPrice: 100.0,
-//                     stockQuantity: 300,
-//                     discountPercentage: 5.0,
-//                     isOnSale: true,
-//                     customFields: {
-//                         quantity: "50 Masks",
-//                         type: "3-Ply"
-//                     }
-//                 }
-//             }
-//         },
-
-//         // SERVICES
-//         {
-//             tenantId,
-//             name: "General Physician Consultation",
-//             sku: "SRV-GP-001",
-//             basePrice: 500.0,
-//             itemType: "SERVICE",
-//             customFields: {
-//                 department: "General Medicine"
-//             },
-//             serviceDetails: {
-//                 create: {
-//                     durationMin: 20,
-//                     isAvailable: true,
-//                     customFields: {
-//                         consultationMode: ["In-Person", "Online"]
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Blood Test Collection",
-//             sku: "SRV-BLOOD-001",
-//             basePrice: 300.0,
-//             itemType: "SERVICE",
-//             customFields: {
-//                 department: "Diagnostics"
-//             },
-//             serviceDetails: {
-//                 create: {
-//                     durationMin: 15,
-//                     isAvailable: true,
-//                     customFields: {
-//                         homeCollectionAvailable: true
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "ECG Test",
-//             sku: "SRV-ECG-001",
-//             basePrice: 800.0,
-//             itemType: "SERVICE",
-//             customFields: {
-//                 department: "Cardiology"
-//             },
-//             serviceDetails: {
-//                 create: {
-//                     durationMin: 30,
-//                     isAvailable: true,
-//                     customFields: {
-//                         reportDelivery: "Same Day"
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Physiotherapy Session",
-//             sku: "SRV-PHYSIO-001",
-//             basePrice: 1200.0,
-//             itemType: "SERVICE",
-//             customFields: {
-//                 department: "Rehabilitation"
-//             },
-//             serviceDetails: {
-//                 create: {
-//                     durationMin: 60,
-//                     isAvailable: true,
-//                     customFields: {
-//                         therapistLevel: "Senior"
-//                     }
-//                 }
-//             }
-//         },
-
-//         {
-//             tenantId,
-//             name: "Vaccination Service",
-//             sku: "SRV-VACCINE-001",
-//             basePrice: 250.0,
-//             itemType: "SERVICE",
-//             customFields: {
-//                 department: "Preventive Care"
-//             },
-//             serviceDetails: {
-//                 create: {
-//                     durationMin: 10,
-//                     isAvailable: true,
-//                     customFields: {
-//                         ageGroup: "All Ages"
-//                     }
-//                 }
-//             }
-//         }
-//     ];
+//     const allPermissions = await prismaDB.permission.findMany();
 
 //     const customers = [
 //         {
@@ -415,5 +199,13 @@ module.exports = prismaDB;
 //             ]
 //         }
 //     ];
-// }
 
+//     const data = await prismaDB.userRole.create({
+//         data: {
+//             userId: autoUserId,
+//             roleId: partnerId
+//         }
+//     });
+
+//     console.log(data);
+// }

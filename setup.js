@@ -19,10 +19,12 @@ function ask(question) {
         const username = await ask("Postgres Username: ");
         const password = await ask("Postgres Password: ");
         const host = await ask("Postgres Host (localhost): ") || "localhost";
-
+        const jwtSecretKey = await ask("JWT Secret Key: ") || "unicrm_edupoly_starterwave";
         const envContent = `
         DATABASE_URL=postgresql://${username}:${password}@${host}:5432/uni_crm?schema=public
         PORT=4444
+        NODE_ENV=dev
+        JWT_SECRET_KEY=${jwtSecretKey}
         `;
 
         fs.writeFileSync(envPath, envContent);

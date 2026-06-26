@@ -1,6 +1,6 @@
 const { z } = require("zod");
 
-const sendResponse = require("../utils/sendResponse");
+const sendResponse = require("../utils/common/sendResponse");
 
 const validation = (schema) => {
     return (req, res, next) => {
