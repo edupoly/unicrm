@@ -4,9 +4,11 @@ const jwt = require('jsonwebtoken');
 
 const { findMultipleUsers, findUser } = require('../../services/auth/login');
 
+
 const sendResponse = require("../../utils/common/sendResponse");
-const { verifyEmailOrMobile, extractUserData } = require('../../utils/auth/login');
 const getCookieOptions = require('../../utils/common/getCookieOptions');
+
+const { verifyEmailOrMobile, extractUserData } = require('../../utils/auth/login');
 
 const { JWT_SECRET_KEY } = process.env;
 

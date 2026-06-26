@@ -25,6 +25,7 @@ function ask(question) {
         PORT=4444
         NODE_ENV=dev
         JWT_SECRET_KEY=${jwtSecretKey}
+        BCRYPT_SALT_ROUNDS=10
         `;
 
         fs.writeFileSync(envPath, envContent);

@@ -1,9 +1,8 @@
 const { z } = require('zod');
-const { REQUIRED_ROLE } = require('../../errors/common/role');
-const { INVALID_EMAIL } = require('../../errors/common/email');
+const { REQUIRED_ROLE, INVALID_ROLE } = require('../../errors/common/role');
 
-const roleValidator = z
+const roleNameValidator = z
     .string(REQUIRED_ROLE)
-    .min(INVALID_EMAIL);
+    .min(3, INVALID_ROLE);
 
-module.exports = roleValidator;
+module.exports = roleNameValidator;

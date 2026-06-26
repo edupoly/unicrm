@@ -3,6 +3,6 @@ const { REQUIRED_BUSINESS_NAME, INVALID_BUSINESS_NAME } = require("../../errors/
 
 const businessNameValidator = z
     .string(REQUIRED_BUSINESS_NAME)
-    .min(1, INVALID_BUSINESS_NAME);
+    .min(3, INVALID_BUSINESS_NAME);
 
 module.exports = businessNameValidator;

@@ -2,9 +2,12 @@ const express = require('express');
 
 const validation = require('../middlewares/validation');
 
-const { loginValidator, verifyUserCompanyValidator } = require('../validators/auth/login');
 
+const { loginValidator, verifyUserCompanyValidator } = require('../validators/auth/login');
 const { login, verifyUserCompany } = require('../controllers/auth/login');
+
+const { registerValidator } = require('../validators/auth/register');
+const { register } = require('../controllers/auth/register');
 
 
 const authRouter = express.Router();
@@ -80,5 +83,8 @@ authRouter.post('/login/verify-user-company',
 //   }
 // }
 // =================================================================
+
+authRouter.post('/register', validation(registerValidator), register);
+
 
 module.exports = authRouter;
