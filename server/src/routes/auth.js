@@ -87,4 +87,4 @@ authRouter.post('/login/verify-user-company',
 authRouter.post('/register', validation(registerValidator), register);
 
 
-module.exports = authRouter;
+module.exports = { authRouter };

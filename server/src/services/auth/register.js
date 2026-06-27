@@ -1,5 +1,7 @@
 const prismaDB = require("../../config/database");
 
+const { NO_PERMISSIONS_IN_DB } = require("../../errors/common/commonValidation");
+
 const registerBusinessAndOwner = async (businessData) => {
     const {
         businessName, name,
@@ -10,7 +12,7 @@ const registerBusinessAndOwner = async (businessData) => {
     const permissions = await prismaDB.permission.findMany();
 
     if (permissions.length === 0) {
-        throw new Error("System configuration error: No permissions found in the database.");
+        throw new Error(NO_PERMISSIONS_IN_DB);
     }
 
     const result = await prismaDB.$transaction(async (tx) => {
