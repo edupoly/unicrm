@@ -12,7 +12,7 @@ const createJwtToken = (payload, expiresIn) => {
 };
 
 const verifyJwtToken = (token) => {
-    return jwt.verify(token, JWT_SECRET_KEY)
+    return jwt.verify(token, JWT_SECRET_KEY);
 };
 
 module.exports = { createJwtToken, verifyJwtToken };

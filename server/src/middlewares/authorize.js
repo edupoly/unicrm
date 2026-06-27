@@ -13,13 +13,23 @@ const authorize = (permission) => {
             return sendResponse(res, 401, false, 'Access Denied: Token is missing');
         }
 
-        const { userId, tenantId, permissions } = verifyJwtToken(token);
+        const tokenPayload = verifyJwtToken(token);
+
+        if (!tokenPayload) {
+            return sendResponse(res, 403, false, 'Access Denied: Token got expired or modified');
+        }
+
+        const { userId, tenantId, permissions } = tokenPayload;
 
         if (!permissions || !(Array.isArray(permissions))) {
             return sendResponse(res, 403, false, `Access Denied: Permissions doesn't exists`);
         }
 
-        const hasPermission = permissions.includes(permission);
+        const hasPermission = permissions.find(p => {
+            return permission.name === p.name
+                && permission.resource === p.resource
+                && permission.description === p.description
+        });
 
         if (!hasPermission) {
             return sendResponse(res, 403, false, `Access Denied: You don't have permission`);
