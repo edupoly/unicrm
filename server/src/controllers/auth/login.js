@@ -54,7 +54,7 @@ const login = async (req, res, next) => {
     // If single user exists with same mobile or email and password
     if (isOnlyOneUserExists) {
         const {
-            id, name, email, tenantId, businessName, roles, permissions
+            id, name, email, mobileNumber, tenantId, businessName, roles, permissions
         } = extractUserData(validUsers[0]);
 
         const userSessionJwtToken = createJwtToken(
@@ -70,7 +70,7 @@ const login = async (req, res, next) => {
 
         return sendResponse(res, 200, true,
             LOGIN_SUCCESSFUL_MSG,
-            getResponsePayload(name, email, businessName, roles, permissions)
+            getResponsePayload(name, email, mobileNumber, businessName, roles, permissions)
         );
     }
 
@@ -128,7 +128,7 @@ const verifyUserCompany = async (req, res, next) => {
 
     const user = await findUser(selectedCompany.userId, selectedCompany.tenantId);
 
-    const { id, name, email, roles, permissions } = extractUserData(user);
+    const { id, name, email, mobileNumber, roles, permissions } = extractUserData(user);
 
     const userSessionJwtToken = createJwtToken(
         getUserSessionJwtPayload(id, tenantId, permissions),
@@ -145,7 +145,7 @@ const verifyUserCompany = async (req, res, next) => {
 
     return sendResponse(res, 200, true,
         LOGIN_SUCCESSFUL_MSG,
-        getResponsePayload(name, email, businessName, roles, permissions)
+        getResponsePayload(name, email, mobileNumber, businessName, roles, permissions)
     );
 };
 

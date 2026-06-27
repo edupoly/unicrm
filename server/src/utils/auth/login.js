@@ -9,7 +9,7 @@ const verifyEmailOrMobile = (identifier) => {
 };
 
 const extractUserData = (userData) => {
-    const { id, name, email, tenant: { tenantId, businessName }, userRoles } = userData;
+    const { id, name, email, mobileNumber, tenant: { tenantId, businessName }, userRoles } = userData;
 
     const roles = userRoles.map(userRole => userRole.role.name);
 
@@ -19,6 +19,7 @@ const extractUserData = (userData) => {
         id,
         name,
         email,
+        mobileNumber,
         tenantId,
         businessName,
         roles,
@@ -34,8 +35,8 @@ const getCompanySelectionSessionJwtPayload = (accounts) => {
     return { accounts };
 };
 
-const getResponsePayload = (name, email, businessName, roles, permissions) => {
-    return { name, email, businessName, roles, permissions };
+const getResponsePayload = (name, email, mobileNumber, businessName, roles, permissions) => {
+    return { name, email, mobileNumber, businessName, roles, permissions };
 };
 
 module.exports = {

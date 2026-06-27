@@ -52,7 +52,7 @@ const register = async (req, res, next) => {
 
     return sendResponse(res, 201, true,
         REGISTRATION_SUCCESSFUL_MSG,
-        getResponsePayload(name, email, businessName, result.roles, permissions)
+        getResponsePayload(name, email, mobileNumber, businessName, result.roles, permissions)
     );
 };
 
