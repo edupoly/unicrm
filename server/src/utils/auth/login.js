@@ -24,6 +24,23 @@ const extractUserData = (userData) => {
         roles,
         permissions
     };
-}
+};
 
-module.exports = { verifyEmailOrMobile, extractUserData };
+const getUserSessionJwtPayload = (userId, tenantId, permissions) => {
+    return { userId, tenantId, permissions };
+};
+
+const getCompanySelectionSessionJwtPayload = (accounts) => {
+    return { accounts };
+};
+
+const getResponsePayload = (name, email, businessName, roles, permissions) => {
+    return { name, email, businessName, roles, permissions };
+};
+
+module.exports = {
+    verifyEmailOrMobile, extractUserData,
+    getUserSessionJwtPayload,
+    getCompanySelectionSessionJwtPayload,
+    getResponsePayload
+};

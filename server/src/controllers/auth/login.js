@@ -1,16 +1,25 @@
 const bcrypt = require('bcrypt');
 
-const jwt = require('jsonwebtoken');
-
 const { findMultipleUsers, findUser } = require('../../services/auth/login');
 
 
 const sendResponse = require("../../utils/common/sendResponse");
 const getCookieOptions = require('../../utils/common/getCookieOptions');
+const { createJwtToken, verifyJwtToken } = require('../../utils/common/createVerifyJwtToken');
 
-const { verifyEmailOrMobile, extractUserData } = require('../../utils/auth/login');
 
-const { JWT_SECRET_KEY } = process.env;
+const { verifyEmailOrMobile, extractUserData,
+    getUserSessionJwtPayload,
+    getCompanySelectionSessionJwtPayload,
+    getResponsePayload
+} = require('../../utils/auth/login');
+
+
+const { USER_SESSION_TIME_JWT, USER_SESSION_TIME_COOKIE,
+    COMPANY_SELECTION_SESSION_TIME_JWT, COMPANY_SELECTION_SESSION_TIME_COOKIE,
+    USER_SESSION_COOKIE_NAME, COMPANY_SELECTION_SESSION_COOKIE_NAME,
+    LOGIN_SUCCESSFUL_MSG
+} = require('../../constants/auth');
 
 
 const login = async (req, res, next) => {
@@ -48,17 +57,21 @@ const login = async (req, res, next) => {
             id, name, email, tenantId, businessName, roles, permissions
         } = extractUserData(validUsers[0]);
 
-        const jwtToken = jwt.sign(
-            { userId: id, tenantId, permissions },
-            JWT_SECRET_KEY,
-            { expiresIn: '5d' }
+        const userSessionJwtToken = createJwtToken(
+            getUserSessionJwtPayload(id, tenantId, permissions),
+            USER_SESSION_TIME_JWT
         );
 
-        res.cookie('actor_access', jwtToken, getCookieOptions(1000 * 60 * 60 * 24 * 5));
+        res.cookie(
+            USER_SESSION_COOKIE_NAME,
+            userSessionJwtToken,
+            getCookieOptions(USER_SESSION_TIME_COOKIE)
+        );
 
-        return sendResponse(res, 200, true, 'Login Successful', {
-            name, email, businessName, roles, permissions
-        });
+        return sendResponse(res, 200, true,
+            LOGIN_SUCCESSFUL_MSG,
+            getResponsePayload(name, email, businessName, roles, permissions)
+        );
     }
 
     // If multiple users exists then ask users to select the tenant
@@ -67,17 +80,27 @@ const login = async (req, res, next) => {
             ({ tenantId: user.tenant.id, businessName: user.tenant.businessName })
         );
 
-        const jwtPayload = validUsers.map(user => ({
+        const accounts = validUsers.map(user => ({
             userId: user.id,
             tenantId: user.tenant.id,
             businessName: user.tenant.businessName
         }));
 
-        const selectionToken = jwt.sign({ accounts: jwtPayload }, JWT_SECRET_KEY, { expiresIn: '3m' });
+        const companySelectionJwtToken = createJwtToken(
+            getCompanySelectionSessionJwtPayload(accounts),
+            COMPANY_SELECTION_SESSION_TIME_JWT
+        );
 
-        res.cookie('select_org', selectionToken, getCookieOptions(1000 * 60 * 3));
+        res.cookie(
+            COMPANY_SELECTION_SESSION_COOKIE_NAME,
+            companySelectionJwtToken,
+            getCookieOptions(COMPANY_SELECTION_SESSION_TIME_COOKIE)
+        );
 
-        return sendResponse(res, 200, true, 'Select the company you want to login', { companies });
+        return sendResponse(res, 200, true,
+            'Select the company you want to login',
+            { companies }
+        );
     }
 };
 
@@ -88,10 +111,12 @@ const verifyUserCompany = async (req, res, next) => {
     const { select_org } = req.cookies;
 
     if (!select_org) {
-        return sendResponse(res, 400, false, 'Time to select the company is finished, try login again.')
+        return sendResponse(res, 400, false,
+            'Time to select the company is finished, try login again.'
+        );
     }
 
-    const { accounts: userCompanies } = jwt.verify(select_org, JWT_SECRET_KEY);
+    const { accounts: userCompanies } = verifyJwtToken(select_org);
 
     const selectedCompany = userCompanies.find(
         userCompany => userCompany.tenantId === tenantId && userCompany.businessName === businessName
@@ -105,19 +130,23 @@ const verifyUserCompany = async (req, res, next) => {
 
     const { id, name, email, roles, permissions } = extractUserData(user);
 
-    const jwtToken = jwt.sign(
-        { userId: id, tenantId, permissions },
-        JWT_SECRET_KEY,
-        { expiresIn: '5d' }
+    const userSessionJwtToken = createJwtToken(
+        getUserSessionJwtPayload(id, tenantId, permissions),
+        USER_SESSION_TIME_JWT
     );
 
-    res.clearCookie('select_org', getCookieOptions());
+    res.clearCookie(COMPANY_SELECTION_SESSION_COOKIE_NAME, getCookieOptions());
 
-    res.cookie('actor_access', jwtToken, getCookieOptions(1000 * 60 * 60 * 24 * 5));
+    res.cookie(
+        USER_SESSION_COOKIE_NAME,
+        userSessionJwtToken,
+        getCookieOptions(USER_SESSION_TIME_COOKIE)
+    );
 
-    return sendResponse(res, 200, true, 'Login Successfull', {
-        name, email, businessName, roles, permissions
-    });
+    return sendResponse(res, 200, true,
+        LOGIN_SUCCESSFUL_MSG,
+        getResponsePayload(name, email, businessName, roles, permissions)
+    );
 };
 
 module.exports = { login, verifyUserCompany };
