@@ -4,7 +4,7 @@
 
 ## **There are 2 ways to setup the project:**
 ### **1. Follow this 2 steps (Semi-Automated Setup):**
-#### Clone this repo: ``git clone https://github.com/edupoly/unicrm.git`` and just run ``npm install`` from the root folder. Everything goes in the flow!
+#### Clone this repo: ``git clone https://github.com/edupoly/unicrm.git`` and just run ``npm run install (not npm install)`` from the root folder. Everything goes in the flow!
 ---
 ### **2. Follow these steps (Manual Setup):**
 #### i. Clone the repo ``git clone https://github.com/edupoly/unicrm.git``.

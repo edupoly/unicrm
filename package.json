@@ -23,6 +23,7 @@
         "server"
     ],
     "scripts": {
+        "install": "npm install --ignore-scripts",
         "postinstall": "node setup.js"
     },
     "dependencies": {

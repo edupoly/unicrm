@@ -18,14 +18,16 @@ function ask(question) {
     if (!fs.existsSync(envPath)) {
         const username = await ask("Postgres Username: ");
         const password = await ask("Postgres Password: ");
-        const host = await ask("Postgres Host (localhost): ") || "localhost";
+        const host = await ask("Postgres Host (default: localhost): ") || "localhost";
+        const dbName = await ask("Postgres Database Name (default: postgres): ") || "postgres";
         const jwtSecretKey = await ask("JWT Secret Key: ") || "unicrm_edupoly_starterwave";
+
         const envContent = `
-        DATABASE_URL=postgresql://${username}:${password}@${host}:5432/uni_crm?schema=public
-        PORT=4444
-        NODE_ENV=dev
-        JWT_SECRET_KEY=${jwtSecretKey}
-        BCRYPT_SALT_ROUNDS=10
+DATABASE_URL=postgresql://${username}:${password}@${host}:5432/${dbName}?schema=public
+PORT=4444
+NODE_ENV=dev
+JWT_SECRET_KEY=${jwtSecretKey}
+BCRYPT_SALT_ROUNDS=10
         `;
 
         fs.writeFileSync(envPath, envContent);
