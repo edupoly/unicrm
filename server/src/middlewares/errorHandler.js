@@ -19,6 +19,9 @@ const errorHandler = (err, req, res, next) => {
         if (err.code === 'P2025') {
             return sendResponse(res, 404, false, `${err.meta.modelName} not found`);
         }
+        else if (err.code === 'P2002') {
+            return sendResponse(res, 409, false, `${err.meta.modelName} already exists`);
+        }
     }
 
     else if (err instanceof PrismaClientValidationError) {

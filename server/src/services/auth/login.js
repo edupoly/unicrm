@@ -9,6 +9,7 @@ const userInclude = {
                         include: {
                             permission: {
                                 select: {
+                                    id: true,
                                     name: true,
                                     resource: true,
                                     description: true

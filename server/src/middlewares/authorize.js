@@ -3,6 +3,7 @@ const { USER_SESSION_COOKIE_NAME } = require("../constants/auth");
 const { verifyJwtToken } = require("../utils/common/createVerifyJwtToken");
 
 const sendResponse = require("../utils/common/sendResponse");
+const { checkPermissionExists } = require("../utils/common/checkPermissionExists");
 
 
 const authorize = (permission) => {
@@ -25,11 +26,7 @@ const authorize = (permission) => {
             return sendResponse(res, 403, false, `Access Denied: Permissions doesn't exists`);
         }
 
-        const hasPermission = permissions.find(p => {
-            return permission.name === p.name
-                && permission.resource === p.resource
-                && permission.description === p.description
-        });
+        const hasPermission = checkPermissionExists(permissions, permission);
 
         if (!hasPermission) {
             return sendResponse(res, 403, false, `Access Denied: You don't have permission`);

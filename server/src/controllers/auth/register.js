@@ -37,8 +37,6 @@ const register = async (req, res, next) => {
         passwordHash, roleName
     });
 
-    const permissions = result.permissions.map(({ id, ...p }) => p);
-
     const jwtToken = createJwtToken(
         getUserSessionJwtPayload(result.userId, result.tenantId, permissions),
         USER_SESSION_TIME_JWT
@@ -52,7 +50,7 @@ const register = async (req, res, next) => {
 
     return sendResponse(res, 201, true,
         REGISTRATION_SUCCESSFUL_MSG,
-        getResponsePayload(name, email, mobileNumber, businessName, result.roles, permissions)
+        getResponsePayload(name, email, mobileNumber, businessName, result.roles, result.permissions)
     );
 };
 

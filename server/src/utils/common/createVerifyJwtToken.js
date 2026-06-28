@@ -12,7 +12,12 @@ const createJwtToken = (payload, expiresIn) => {
 };
 
 const verifyJwtToken = (token) => {
-    return jwt.verify(token, JWT_SECRET_KEY);
+    try {
+        return jwt.verify(token, JWT_SECRET_KEY);
+    }
+    catch (err) {
+        throw new jwt.JsonWebTokenError('Access Denied: Token got expired or modified');
+    }
 };
 
 module.exports = { createJwtToken, verifyJwtToken };
