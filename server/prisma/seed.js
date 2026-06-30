@@ -9,34 +9,28 @@ const systemPermissions = [
     { name: "update", resource: "users", description: "Allow editing employee roles, status, or details" },
     { name: "delete", resource: "users", description: "Allow removing an employee from the system" },
 
-    // --- 2. PRODUCTS MODULE (Inventory) ---
-    { name: "create", resource: "products", description: "Allow adding new physical inventory items" },
-    { name: "read", resource: "products", description: "Allow looking up items, tracking stock, or scanning barcodes" },
-    { name: "update", resource: "products", description: "Allow updating item prices, stock counts, or details" },
-    { name: "delete", resource: "products", description: "Allow removing products from active selection lists" },
+    // --- 2. UNIFIED ITEMS MODULE (Products & Services Catalog) ---
+    { name: "create", resource: "items", description: "Allow creating new catalog offerings (both physical products and services)" },
+    { name: "read", resource: "items", description: "Allow viewing the catalog list, tracking stock levels, and looking up service rates" },
+    { name: "update", resource: "items", description: "Allow modifying prices, adjusting stock counts, and changing service details" },
+    { name: "delete", resource: "items", description: "Allow removing items or services from active selection lists" },
 
-    // --- 3. SERVICES MODULE (Consultations, Tests, Bookings) ---
-    { name: "create", resource: "services", description: "Allow defining new treatments, tasks, or clinical tests" },
-    { name: "read", resource: "services", description: "Allow looking up available business services and pricing" },
-    { name: "update", resource: "services", description: "Allow editing service durations, availability flags, or base prices" },
-    { name: "delete", resource: "services", description: "Allow removing services from active business operations" },
-
-    // --- 4. CUSTOMER MODULE ---
+    // --- 3. CUSTOMER MODULE ---
     { name: "create", resource: "customers", description: "Allow registering a new customer profile at checkout" },
     { name: "read", resource: "customers", description: "Allow searching customer profiles by mobile phone numbers" },
     { name: "update", resource: "customers", description: "Allow updating customer addresses or personal profiles" },
     { name: "delete", resource: "customers", description: "Allow removing customer entries from the management system" },
 
-    // --- 5. BILLING ENGINE (Orders & Invoices) ---
+    // --- 4. BILLING ENGINE (Orders & Invoices) ---
     { name: "create", resource: "invoices", description: "Allow processing transactions, checking out carts, and printing receipts" },
     { name: "read", resource: "invoices", description: "Allow looking up historical bills, transaction logs, or past customer receipts" },
     { name: "update", resource: "invoices", description: "Allow changing order payment statuses (e.g., changing PENDING to PAID)" },
-    { name: "delete", resource: "invoices", description: "Allow cancelling or voiding an transaction entry" },
+    { name: "delete", resource: "invoices", description: "Allow cancelling or voiding a transaction entry" },
 
-    // --- 6. OWNER DASHBOARD ANALYTICS ---
-    { name: "read", resource: "analytics", description: "Allow access to total revenue graphs, profit trends, and low-stock alerts" },
+    // --- 5. OWNER DASHBOARD ANALYTICS ---
+    { name: "read", resource: "analytics", description: "Allow access to total revenue graphs, profit trends, and dashboard performance counters" },
 
-    // --- 7. ROLE & SECURITY CONFIGURATION ---
+    // --- 6. ROLE & SECURITY CONFIGURATION ---
     { name: "manage", resource: "roles", description: "Allow owners to build custom roles and assign permissions to staff templates" }
 ];
 
