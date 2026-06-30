@@ -38,7 +38,7 @@ const register = async (req, res, next) => {
     });
 
     const jwtToken = createJwtToken(
-        getUserSessionJwtPayload(result.userId, result.tenantId, permissions),
+        getUserSessionJwtPayload(result.userId, result.tenantId, result.permissions),
         USER_SESSION_TIME_JWT
     );
 

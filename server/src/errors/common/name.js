@@ -1,5 +1,5 @@
 const nameValidationErrors = {
-    REQUIRED_NAME: 'Enter your name',
+    REQUIRED_NAME: 'Enter a name',
     INVALID_NAME: 'Enter a valid name'
 };
 

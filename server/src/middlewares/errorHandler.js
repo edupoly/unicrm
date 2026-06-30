@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next) => {
     }
 
     else if (err instanceof JsonWebTokenError) {
-        return sendResponse(res, 403, false, 'Access Denied: Token got expired');
+        return sendResponse(res, 403, false, 'Access Denied: Token got expired or modified');
     }
 
     return sendResponse(res, 500, false, 'Something went wrong in the Server!');

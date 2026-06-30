@@ -1,0 +1,116 @@
+We are building a multi-tenant SaaS CRM where multiple separate companies use our exact same 
+application and database, but they never see each other's data. 
+We never change the source code or schema of the application. 
+
+To maintain the isolation between different companies, 
+we assign unique IDs for every business, which is called Tenant ID. 
+And business A cannot access the data of business B because every schema in our application 
+separates the data using tenant ID. 
+
+Instead of adding separate specific columns for every business in the schema, 
+we will define custom fields as JSONB Where businesses can add their specific fields into this
+custom fields as JSON objects.
+
+
+Schemas:
+First, the tenant scheme is used to store the business details 
+and also to uniquely identify the business. It has Tenant ID. Every table, like products, services, 
+users, roles, invoices, customers, invoices, the data is stored based on this tenant ID, 
+because to fetch the data of a specific business we have to identify every schema using this tenant ID. 
+
+And users in this CRM are also connected by tenant ID, meaning a user can work in company A 
+and also in company B. The users schema identifies a record based on two fields:
+- tenant ID email ID
+- and tenant ID mobile number
+
+And to provide different users access to different units or resources in the CRM, we will assign permissions to their role. 
+Permissions in the CRM are global and static. They don't change by any tenants.
+For example, a business A can create a role called Sales Rep, and they can assign permissions like:
+- create invoices
+- update invoices
+- delete invoices
+The components or routes related to these permissions can only be accessed by the sales rep.
+
+We allow a role-based authentication system in the CRM to store the different roles of a different business.
+We have a schema called roles where it stores tenant ID and other details.
+To assign the permissions of a role, we have another schema called roles permissions, where we will bind a
+permission ID to our role ID.
+One thing you have to understand is that the role is customizable by every tenant, and the permissions are not customizable. 
+The default permissions can be bind to a specific role in the company. 
+
+
+
+Registration:
+Imagine you are a medical shop owner. You will open the CRM and enter:
+- your business name
+- your name
+- role name
+- email ID
+- mobile number
+- password
+You will submit the form. That's it.
+This is the data that we will take as input from the user while the process of registration.
+
+First, your business gets a unique ID, meaning a row is created in the tenants table with your business name and also a tenant ID,
+and you will get that tenant ID. And your role is created with all permissions binded to your role, because you are the admin.
+
+Next, based on the role id and the tenant id, a user record is created with your name, email id, mobile number, and password.
+
+To make the user onboarding process easier, we just kept only these six fields to enter into the CRM.
+
+After completion of this transaction, the response object or payload will contain your business name, your name, email ID, 
+mobile number, roles and also the permissions, because these are all needed in the frontend. 
+
+Also, a JWT token is created with user ID, tenant ID, and permissions because these are the things 
+which are needed to allow the user to a specific route and also to create a record in any schema using the tenant ID. 
+Also, to identify a particular user, we need user ID. That's why these three things are securely stored in the token.
+
+This is the response format, and also JWT token format is also followed in the login process. 
+
+
+Login:
+To log in, every employee, every owner of the business, can give input as email or mobile number and password. 
+As we know, a single user with the same email ID and mobile number can create different accounts in different businesses. 
+For example, Alex can have an account in company B with the same email and mobile number and also in company A.
+
+So when a user enters email ID or mobile number and password, we don't know which account to make him log in.
+
+First, we will find out the user records of that email ID or mobile number and the password.
+If we only found a single user record using these credentials, then we will create the session for that account, 
+and we will allow him to sign in to that specific business.
+if we found multiple accounts in multiple businesses then we have to ask the user to select a specific account that 
+he or she wants to login.
+
+After selecting the accounts by the user, we have to verify the credentials again and create the same response format which is used in the register route, like:
+- name
+- business name
+- email ID
+- or by number
+- password
+- roles
+- permissions
+
+And the same JWT token which contains user ID, tenant ID, and permissions.
+
+
+
+Authorization:
+For suppose, a user wants to create a role in a business.
+To allow the user to create a role, we have to allow him to access the route called roles/create.
+
+Before allowing access to that route, he should have permission to access this route. 
+That permission is like an object which follows the structure name:"create", resource:"roles".
+
+We know that whenever the user sends a request, we will also get his JWT token containing all his permissions. 
+We have to check if this permission, which is mentioned above, exists in the user's permissions. 
+
+So for every route, they need a permission to access. We created a middleware called authorize where it takes an argument as a 
+permission object. It returns a function which is unique for every route,
+where it extracts the JWT token and finds out if the permission (which is passed as an argument to it) 
+exists in the user's permissions.
+
+If the user has a permission It stores the user object with the token payload in the request object and it allows access to the route, 
+or else it will stop the user from accessing the route.
+
+
+Switching between roles of an user are needed or directly using permissions.

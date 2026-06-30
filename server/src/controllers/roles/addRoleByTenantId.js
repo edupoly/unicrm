@@ -1,14 +1,17 @@
-const { getPermissionsService } = require("../../services/permissions/getPermissionsService");
 const { addRoleByTenantIdService } = require("../../services/roles/addRoleByTenantIdService");
+
 const sendResponse = require("../../utils/common/sendResponse");
 const { checkPermissionExists } = require("../../utils/common/checkPermissionExists");
+
+const { getGlobalPermissions } = require("../../config/permissions");
+const { PERMISSIONS_CONSTANTS } = require("../../constants/permissions");
 
 const addRoleByTenantId = async (req, res, next) => {
     const { tenantId } = req.user;
 
     const { roleName, description, permissions } = req.body;
 
-    const allPermissions = await getPermissionsService();
+    const allPermissions = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_ARRAY);
 
     const allPermissionsExist = permissions.every(p => checkPermissionExists(allPermissions, p));
 

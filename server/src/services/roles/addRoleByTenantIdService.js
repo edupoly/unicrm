@@ -23,7 +23,9 @@ const addRoleByTenantIdService = async (tenantId, roleName, description, permiss
             data: permissionIdsRoleId
         });
 
-        return { role, permissions };
+        role['permissions'] = permissions;
+        
+        return role;
     });
 
     return result;
