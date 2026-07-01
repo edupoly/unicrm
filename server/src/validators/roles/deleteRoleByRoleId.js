@@ -1,11 +1,9 @@
 const { default: z } = require("zod");
-const { REQUIRED_ROLE_ID, INVALID_ROLE_ID } = require("../../errors/uuid/roleId");
 const { REQUIRED_OBJECT } = require("../../errors/common/commonValidation");
+const roleIdValidator = require("../uuid/roleId");
 
 const deleteRoleByRoleIdValidator = z.object({
-    id: z
-        .string(REQUIRED_ROLE_ID)
-        .uuid(INVALID_ROLE_ID)
+    id: roleIdValidator
 }, REQUIRED_OBJECT);
 
 module.exports = { deleteRoleByRoleIdValidator };
