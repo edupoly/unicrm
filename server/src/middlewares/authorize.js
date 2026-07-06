@@ -26,8 +26,8 @@ const authorize = (permission) => {
             return sendResponse(res, 403, false, `Access Denied: Permissions doesn't exists`);
         }
 
-        const hasPermission = checkPermissionExists(permissions, permission);
-        console.log('\n\nkldkl\\n\n', userId, tenantId, permissions, token)
+        const hasPermission = checkPermissionExists(permission, permissions);
+
         if (!hasPermission) {
             return sendResponse(res, 403, false, `Access Denied: You don't have permission`);
         }
