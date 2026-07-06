@@ -5,6 +5,7 @@ const getCookieOptions = (maxAge) => {
         httpOnly: true,
         secure: NODE_ENV === 'dev' ? false : true,
         sameSite: NODE_ENV === 'dev' ? 'lax' : 'none',
+        path: '/',
         maxAge
     }
 };

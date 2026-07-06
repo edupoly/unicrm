@@ -9,7 +9,7 @@ const verifyEmailOrMobile = (identifier) => {
 };
 
 const extractUserData = (userData) => {
-    const { id, name, email, mobileNumber, tenant: { tenantId, businessName }, userRoles } = userData;
+    const { id, name, email, mobileNumber, tenantId, tenant: { businessName }, userRoles } = userData;
 
     const roles = userRoles.map(userRole => userRole.role.name);
 
