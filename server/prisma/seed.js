@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { getPermissionsService } = require('../src/services/permissions/getPermissionsService');
 
 const prisma = new PrismaClient();
 
@@ -35,6 +36,13 @@ const systemPermissions = [
 ];
 
 async function seedGlobalData() {
+
+    const DBPermissions = getPermissionsService();
+
+    if (DBPermissions.length === systemPermissions.length) {
+        return console.log("Permissions Seeding Already Completed...")
+    }
+    
     console.log('Seeding Global Data to your DB...')
     try {
         const permissionsCount = await prisma.permission.createMany({

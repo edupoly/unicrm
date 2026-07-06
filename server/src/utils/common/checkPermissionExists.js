@@ -3,7 +3,7 @@ const checkPermissionExists = (allPermissions, permission) => {
         return p.id === permission.id
             && p.name === permission.name
             && p.resource === permission.resource
-            && p.description === p.description;
+            && p.description === permission.description;
     });
     return isPermissionExists;
 };
