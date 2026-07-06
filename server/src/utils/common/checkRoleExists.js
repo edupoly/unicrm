@@ -1,11 +1,11 @@
 const prismaDB = require("../../config/database");
 
-const checkRoleExists = async (roleId) => {
-    const role = await prismaDB.role.findUnique({
-        where: { id: roleId },
+const checkAllRolesExist = async (roleIds) => {
+    const roles = await prismaDB.role.findMany({
+        where: { id: { in: roleIds } },
         select: { id: true }
     });
-    return !!role;
+    return roles.length === roleIds.length;
 };
 
-module.exports = { checkRoleExists };
+module.exports = { checkAllRolesExist };

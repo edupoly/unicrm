@@ -1,6 +1,6 @@
 const prismaDB = require('../../config/database');
 
-const addUserByTenantIdService = async (tenantId, name, mobileNumber, email, passwordHash, roleId) => {
+const addUserByTenantIdService = async (tenantId, name, mobileNumber, email, passwordHash, roleIds) => {
   const result = await prismaDB.$transaction(async (tx) => {
     const user = await tx.user.create({
       data: { tenantId, name, mobileNumber, email, passwordHash },
@@ -12,8 +12,10 @@ const addUserByTenantIdService = async (tenantId, name, mobileNumber, email, pas
       }
     });
 
-    await tx.userRole.create({
-      data: { userId: user.id, roleId }
+    const userRolesData = roleIds.map(roleId => ({ userId: user.id, roleId }));
+
+    await tx.userRole.createMany({
+      data: userRolesData
     });
 
     return user;
