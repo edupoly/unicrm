@@ -7,7 +7,7 @@ const roleIdValidator = require("../uuid/roleId");
 
 const addUserByTenantIdValidator = z.object({
   name: nameValidator,
-  mobile: mobileNumberValidator,
+  mobileNumber: mobileNumberValidator,
   email: emailValidator,
   password: passwordValidator,
   roleIds: z.array(roleIdValidator).min(1, "At least one role is required")
