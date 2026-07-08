@@ -9,6 +9,7 @@ const { authRouter } = require('../routes/auth');
 const { permissionsRouter } = require('../routes/permissions');
 const { rolesRouter } = require('../routes/roles');
 const { usersRouter } = require('../routes/users');
+const { itemsRouter } = require('../routes/items');
 
 const errorHandler = require('../middlewares/errorHandler');
 
@@ -23,6 +24,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/permissions', permissionsRouter);
 app.use('/api/roles', rolesRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/items', itemsRouter);
 
 // error handler
 app.use(errorHandler);

@@ -22,6 +22,10 @@ const authorize = (permission) => {
 
         const { userId, tenantId, permissions } = tokenPayload;
 
+        if (!userId || !tenantId) {
+            return sendResponse(res, 401, false, 'Access Denied: Token has missing fields');
+        }
+
         if (!permissions || !(Array.isArray(permissions))) {
             return sendResponse(res, 403, false, `Access Denied: Permissions doesn't exists`);
         }

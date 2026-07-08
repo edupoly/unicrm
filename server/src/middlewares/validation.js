@@ -2,9 +2,11 @@ const { z } = require("zod");
 
 const sendResponse = require("../utils/common/sendResponse");
 
-const validation = (schema) => {
+const { REQUEST_INPUT_BODY } = require("../constants/common");
+
+const validation = (schema, input = REQUEST_INPUT_BODY) => {
     return (req, res, next) => {
-        const validation = z.safeParse(schema, req.body);
+        const validation = z.safeParse(schema, req[input]);
 
         if (validation.success) return next();
 
