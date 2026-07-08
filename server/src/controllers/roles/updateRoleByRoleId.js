@@ -1,7 +1,3 @@
-const { getGlobalPermissions } = require("../../config/permissions");
-
-const { PERMISSIONS_CONSTANTS } = require("../../constants/permissions");
-
 const { updateRoleByRoleIdService } = require("../../services/roles/updateRoleByRoleIdService");
 
 const { checkPermissionExists } = require("../../utils/common/checkPermissionExists");
@@ -19,9 +15,7 @@ const updateRoleByRoleId = async (req, res, next) => {
     }
 
     if (permissions && Array.isArray(permissions)) {
-        const allPermissions = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_ARRAY);
-
-        const allPermissionsExist = permissions.every(p => checkPermissionExists(allPermissions, p));
+        const allPermissionsExist = permissions.every(p => checkPermissionExists(p));
 
         if (!allPermissionsExist) {
             return sendResponse(res, 400, false,

@@ -26,7 +26,7 @@ const authorize = (permission) => {
             return sendResponse(res, 403, false, `Access Denied: Permissions doesn't exists`);
         }
 
-        const hasPermission = checkPermissionExists(permissions, permission);
+        const hasPermission = checkPermissionExists(permission, permissions);
 
         if (!hasPermission) {
             return sendResponse(res, 403, false, `Access Denied: You don't have permission`);
