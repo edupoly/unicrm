@@ -10,7 +10,7 @@ const addUserByTenantIdValidator = z.object({
   mobile: mobileNumberValidator,
   email: emailValidator,
   password: passwordValidator,
-  role_ids: z.array(roleIdValidator).min(1, "At least one role is required")
+  roleIds: z.array(roleIdValidator).min(1, "At least one role is required")
 })
 
 module.exports = { addUserByTenantIdValidator };

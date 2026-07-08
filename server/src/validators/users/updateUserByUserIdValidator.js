@@ -12,7 +12,7 @@ const updateUserByUserIdValidator = z.object({
   mobile: mobileNumberValidator.optional(),
   email: emailValidator.optional(),
   password: passwordValidator.optional(),
-  role_ids: z.array(roleIdValidator).optional()
+  roleIds: z.array(roleIdValidator).optional()
 })
 
 module.exports = { updateUserByUserIdValidator };
