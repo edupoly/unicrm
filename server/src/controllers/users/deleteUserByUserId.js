@@ -13,7 +13,7 @@ const deleteUserByUserId = async (req, res, next) => {
 
     await deleteUserByUserIdService(tenantId, id);
 
-    return sendResponse(res, 204, true, 'User removed successfully');
+    return sendResponse(res, 200, true, 'User removed successfully');
 };
 
 module.exports = { deleteUserByUserId };

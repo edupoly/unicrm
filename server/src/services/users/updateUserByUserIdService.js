@@ -1,38 +1,42 @@
 const prismaDB = require("../../config/database");
 
-const updateRoleByRoleIdService = async (tenantId, roleId, name, description, permissions) => {
-    const data = {
-        ...(roleId && { id: roleId }),
-        ...(name && { name }),
-        ...(description && { description }),
-        ...(permissions && { permissions })
-    };
+const updateUserByUserIdService = async (tenantId, userId, data) => {
+  const { name, mobileNumber, email, passwordHash, roleIds } = data;
 
-    const rolePermissions = permissions?.map(p => ({ roleId, permissionId: p.id }));
+  const result = await prismaDB.$transaction(async (tx) => {
+    const updateData = {};
+    if (name !== undefined) updateData.name = name;
+    if (mobileNumber !== undefined) updateData.mobileNumber = mobileNumber;
+    if (email !== undefined) updateData.email = email;
+    if (passwordHash !== undefined) updateData.passwordHash = passwordHash;
 
-    const result = await prismaDB.$transaction(async (tx) => {
-        const updatedRole = await tx.role.update({
-            data: {
-                ...(name && { name }),
-                ...(description && { description })
-            },
-            where: { tenantId, id: roleId }
-        });
-
-        if (!rolePermissions || rolePermissions?.length === 0) return { updatedRole };
-
-        const deletedPermissions = await tx.rolePermission.deleteMany({
-            where: { roleId }
-        });
-
-        const updatedPermissions = await tx.rolePermission.createManyAndReturn({
-            data: rolePermissions
-        });
-
-        return { updatedRole, updatedPermissions };
+    const user = await tx.user.update({
+      where: { id: userId, tenantId },
+      data: updateData,
+      select: {
+        id: true,
+        name: true,
+        mobileNumber: true,
+        email: true
+      }
     });
 
-    return data;
+    if (roleIds !== undefined) {
+      await tx.userRole.deleteMany({
+        where: { userId }
+      });
+
+      const userRolesData = roleIds.map(roleId => ({ userId, roleId }));
+
+      await tx.userRole.createMany({
+        data: userRolesData
+      });
+    }
+
+    return user;
+  });
+
+  return result;
 };
 
-module.exports = { updateRoleByRoleIdService };
+module.exports = { updateUserByUserIdService };
