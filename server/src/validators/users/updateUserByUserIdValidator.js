@@ -9,10 +9,10 @@ const userIdValidator = require("../uuid/userId");
 const updateUserByUserIdValidator = z.object({
   id: userIdValidator,
   name: nameValidator.optional(),
-  mobile: mobileNumberValidator.optional(),
+  mobileNumber: mobileNumberValidator.optional(),
   email: emailValidator.optional(),
   password: passwordValidator.optional(),
-  role_ids: z.array(roleIdValidator).optional()
+  roleIds: z.array(roleIdValidator).optional()
 })
 
 module.exports = { updateUserByUserIdValidator };
