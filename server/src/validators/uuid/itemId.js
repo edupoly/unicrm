@@ -5,4 +5,4 @@ const itemIdValidator = z
     .string(REQUIRED_ITEM_ID)
     .uuid(INVALID_ITEM_ID);
 
-module.exports = { itemIdValidator };
+module.exports = itemIdValidator;

@@ -13,7 +13,7 @@ const serviceDetailsValidator = require("../common/items/serviceDetails");
 const { REQUIRED_OBJECT, REQUIRED_ARRAY, INVALID_ARRAY } = require("../../errors/common/commonValidation");
 
 const addItemsByTenantIdValidator = z.object({
-    
+
     items: z.array(z.object({
         name: nameValidator,
         sku: skuValidator,
@@ -24,8 +24,8 @@ const addItemsByTenantIdValidator = z.object({
         customFields: customFieldsValidator,
         productDetails: productDetailsValidator.optional(),
         serviceDetails: serviceDetailsValidator.optional()
-    }), REQUIRED_ARRAY).min(1, INVALID_ARRAY)
+    }, REQUIRED_OBJECT).strict(), REQUIRED_ARRAY).min(1, INVALID_ARRAY)
 
-}, REQUIRED_OBJECT);
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { addItemsByTenantIdValidator };

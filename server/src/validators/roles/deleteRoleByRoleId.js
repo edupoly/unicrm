@@ -4,6 +4,6 @@ const roleIdValidator = require("../uuid/roleId");
 
 const deleteRoleByRoleIdValidator = z.object({
     id: roleIdValidator
-}, REQUIRED_OBJECT);
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { deleteRoleByRoleIdValidator };

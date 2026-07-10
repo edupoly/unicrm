@@ -8,6 +8,6 @@ const productDetailsValidator = z.object({
     stockQuantity: quantityStockValidator,
     minimumStockLevel: quantityStockValidator,
     customFields: customFieldsValidator
-});
+}).strict();
 
 module.exports = productDetailsValidator;

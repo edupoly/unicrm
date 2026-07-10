@@ -5,6 +5,6 @@ const durationMinValidator = require("./durationMin");
 const serviceDetailsValidator = z.object({
     durationMin: durationMinValidator,
     customFields: customFieldsValidator
-});
+}).strict();
 
 module.exports = serviceDetailsValidator;

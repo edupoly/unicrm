@@ -15,6 +15,6 @@ const updateUserByUserIdValidator = z.object({
     email: emailValidator.optional(),
     password: passwordValidator.optional(),
     roleIds: z.array(roleIdValidator).optional()
-})
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { updateUserByUserIdValidator };

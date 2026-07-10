@@ -10,6 +10,6 @@ const updateRoleByRoleIdValidator = z.object({
     name: nameValidator.optional(),
     description: descriptionValidator.optional(),
     permissions: permissionsValidator.optional()
-}, REQUIRED_OBJECT);
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { updateRoleByRoleIdValidator };

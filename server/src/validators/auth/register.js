@@ -15,6 +15,6 @@ const registerValidator = z.object({
     mobileNumber: mobileNumberValidator,
     password: passwordValidator,
     roleName: roleNameValidator
-}, REQUIRED_OBJECT);
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { registerValidator };
