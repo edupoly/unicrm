@@ -6,8 +6,6 @@ const updateItemByItemId = async (req, res, next) => {
 
     const { productDetails, serviceDetails, id: itemId, ...item } = req.body;
 
-    console.log(productDetails, serviceDetails, item);
-
     if (!Object.keys(item).length && (!productDetails || !serviceDetails)) {
         return sendResponse(res, 400, false, 'At least one field should change to update the item');
     }
