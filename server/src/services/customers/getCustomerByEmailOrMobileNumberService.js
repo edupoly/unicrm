@@ -1,8 +1,8 @@
 const prismaDB = require("../../config/database");
 
-const getCustomersByTenantIdService = async (tenantId) => {
-    const customers = await prismaDB.customer.findMany({
-        where: { tenantId },
+const getCustomerByEmailOrMobileNumberService = async (condition) => {
+    const customer = await prismaDB.customer.findUniqueOrThrow({
+        where: condition,
         omit: {
             tenantId: true,
             createdBy: true,
@@ -21,7 +21,7 @@ const getCustomersByTenantIdService = async (tenantId) => {
             }
         }
     });
-    return customers;
+    return customer;
 };
 
-module.exports = { getCustomersByTenantIdService };
+module.exports = { getCustomerByEmailOrMobileNumberService };

@@ -223,6 +223,7 @@ model Customer {
   invoices Invoice[]
 
   @@unique([tenantId, mobileNumber])
+  @@unique([tenantId, email])
   @@map("customers")
 }
 

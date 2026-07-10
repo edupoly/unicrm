@@ -10,6 +10,9 @@ const validation = require('../middlewares/validation');
 
 const { getCustomersByTenantId } = require('../controllers/customers/getCustomersByTenantId');
 
+const { getCustomerByEmailOrMobileNumberValidator } = require('../validators/customers/getCustomerByEmailOrMobileNumberValidator');
+const { getCustomerByEmailOrMobileNumber } = require('../controllers/customers/getCustomerByEmailOrMobileNumber');
+
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
 
@@ -21,6 +24,10 @@ customersRouter.get('/',
     getCustomersByTenantId
 );
 
-
+customersRouter.get('/find-by-email-or-mobile',
+    authorize(PERMISSIONS.CUSTOMERS.READ),
+    validation(getCustomerByEmailOrMobileNumberValidator),
+    getCustomerByEmailOrMobileNumber
+);
 
 module.exports = { customersRouter };
