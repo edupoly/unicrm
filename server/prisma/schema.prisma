@@ -193,7 +193,6 @@ model ProductDetail {
 model ServiceDetail {
   itemId      String  @id @map("item_id") @db.Uuid
   durationMin Int     @map("duration_minutes")
-  isAvailable Boolean @default(true) @map("is_available")
 
   // Service-specific metadata (e.g., {"travel_required": true, "skills": ["nodejs"]})
   customFields Json @default("{}") @map("custom_fields")

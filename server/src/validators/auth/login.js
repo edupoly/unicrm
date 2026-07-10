@@ -11,13 +11,13 @@ const businessNameValidator = require('../common/businessName');
 const loginValidator = z.object({
     identifier: emailOrMobileNumberValidator,
     password: passwordValidator
-}, { message: REQUIRED_OBJECT });
+}, REQUIRED_OBJECT);
 
 
 const verifyUserCompanyValidator = z.object({
     tenantId: tenantIdValidator,
     businessName: businessNameValidator
-}, { message: REQUIRED_OBJECT });
+}, REQUIRED_OBJECT);
 
 
 module.exports = { loginValidator, verifyUserCompanyValidator };

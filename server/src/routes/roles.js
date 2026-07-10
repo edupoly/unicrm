@@ -19,7 +19,6 @@ const { deleteRoleByRoleId } = require('../controllers/roles/deleteRoleByRoleId'
 const { deleteRoleByRoleIdValidator } = require('../validators/roles/deleteRoleByRoleId');
 
 
-
 const rolesRouter = express.Router();
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
