@@ -10,7 +10,7 @@ const { REQUIRED_OBJECT, REQUIRED_ARRAY, INVALID_ARRAY } = require("../../errors
 const addUserByTenantIdValidator = z.object({
     name: nameValidator,
     mobileNumber: mobileNumberValidator,
-    email: emailValidator,
+    email: emailValidator.optional(),
     password: passwordValidator,
     roleIds: z.array(roleIdValidator, REQUIRED_ARRAY).min(1, INVALID_ARRAY)
 }, REQUIRED_OBJECT).strict();
