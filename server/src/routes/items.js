@@ -20,6 +20,9 @@ const { deleteItemByItemId } = require('../controllers/items/deleteItemByItemId'
 const { addItemsByTenantIdValidator } = require('../validators/items/addItemsByTenantId');
 const { addItemsByTenantId } = require('../controllers/items/addItemByTenantId');
 
+const { updateItemByItemIdValidator } = require('../validators/items/updateItemByItemId');
+const { updateItemByItemId } = require('../controllers/items/updateItemByItemId');
+
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
 
@@ -40,6 +43,12 @@ itemsRouter.post('/',
     authorize(PERMISSIONS.ITEMS.CREATE),
     validation(addItemsByTenantIdValidator),
     addItemsByTenantId
+);
+
+itemsRouter.patch('/',
+    authorize(PERMISSIONS.ITEMS.UPDATE),
+    validation(updateItemByItemIdValidator),
+    updateItemByItemId
 );
 
 itemsRouter.delete('/',

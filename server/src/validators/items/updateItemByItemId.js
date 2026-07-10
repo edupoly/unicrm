@@ -25,4 +25,4 @@ const updateItemByItemIdValidator = z.object({
     serviceDetails: serviceDetailsValidator.optional()
 }, REQUIRED_OBJECT).strict();
 
-module.exports = updateItemByItemIdValidator;
+module.exports = { updateItemByItemIdValidator };
