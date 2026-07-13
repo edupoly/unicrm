@@ -8,6 +8,7 @@ const { REQUEST_INPUT_PARAMS } = require('../constants/common');
 const { authorize } = require('../middlewares/authorize');
 const validation = require('../middlewares/validation');
 
+
 const { getCustomersByTenantId } = require('../controllers/customers/getCustomersByTenantId');
 
 const { getCustomerByEmailOrMobileNumberValidator } = require('../validators/customers/getCustomerByEmailOrMobileNumber');
@@ -18,6 +19,9 @@ const { addCustomerByTenantId } = require('../controllers/customers/addCustomerB
 
 const { deleteCustomerByCustomerIdValidator } = require('../validators/customers/deleteCustomerByCustomerId');
 const { deleteCustomerByCustomerId } = require('../controllers/customers/deleteCustomerByCustomerId');
+
+const { updateCustomerByCustomerIdValidator } = require('../validators/customers/updateCustomerByCustomerId');
+const { updateCustomerByCustomerId } = require('../controllers/customers/updateCustomerByCustomerId');
 
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
@@ -40,6 +44,12 @@ customersRouter.post('/',
     authorize(PERMISSIONS.CUSTOMERS.CREATE),
     validation(addCustomerByTenantIdValidator),
     addCustomerByTenantId
+);
+
+customersRouter.patch('/',
+    authorize(PERMISSIONS.CUSTOMERS.UPDATE),
+    validation(updateCustomerByCustomerIdValidator),
+    updateCustomerByCustomerId
 );
 
 customersRouter.delete('/',
