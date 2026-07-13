@@ -8,23 +8,53 @@ const { REQUEST_INPUT_PARAMS } = require('../constants/common');
 const { authorize } = require('../middlewares/authorize');
 const validation = require('../middlewares/validation');
 
+
 const { getItemsByTenantId } = require('../controllers/items/getItemsByTenantId');
 
 const { getItemByItemIdValidator } = require('../validators/items/getItemByItemId');
 const { getItemByItemId } = require('../controllers/items/getItemByItemId');
+
+const { deleteItemByItemIdValidator } = require('../validators/items/deleteItemByItemId');
+const { deleteItemByItemId } = require('../controllers/items/deleteItemByItemId');
+
+const { addItemsByTenantIdValidator } = require('../validators/items/addItemsByTenantId');
+const { addItemsByTenantId } = require('../controllers/items/addItemByTenantId');
+
+const { updateItemByItemIdValidator } = require('../validators/items/updateItemByItemId');
+const { updateItemByItemId } = require('../controllers/items/updateItemByItemId');
 
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
 
 const itemsRouter = express.Router();
 
-
-itemsRouter.get('/', authorize(PERMISSIONS.ITEMS.READ), getItemsByTenantId);
+itemsRouter.get('/',
+    authorize(PERMISSIONS.ITEMS.READ),
+    getItemsByTenantId
+);
 
 itemsRouter.get('/:id',
     authorize(PERMISSIONS.ITEMS.READ),
     validation(getItemByItemIdValidator, REQUEST_INPUT_PARAMS),
     getItemByItemId
+);
+
+itemsRouter.post('/',
+    authorize(PERMISSIONS.ITEMS.CREATE),
+    validation(addItemsByTenantIdValidator),
+    addItemsByTenantId
+);
+
+itemsRouter.patch('/',
+    authorize(PERMISSIONS.ITEMS.UPDATE),
+    validation(updateItemByItemIdValidator),
+    updateItemByItemId
+);
+
+itemsRouter.delete('/',
+    authorize(PERMISSIONS.ITEMS.DELETE),
+    validation(deleteItemByItemIdValidator),
+    deleteItemByItemId
 );
 
 module.exports = { itemsRouter };

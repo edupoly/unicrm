@@ -26,4 +26,11 @@ const ITEM_FIELDS_OBJ = {
     }
 };
 
-module.exports = { ITEM_FIELDS_OBJ };
+const ITEM_TYPE_PRODUCT = 'PRODUCT';
+const ITEM_TYPE_SERVICE = 'SERVICE';
+
+module.exports = {
+    ITEM_FIELDS_OBJ,
+    ITEM_TYPE_PRODUCT,
+    ITEM_TYPE_SERVICE
+};

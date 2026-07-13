@@ -8,6 +8,6 @@ const addRoleByTenantIdValidator = z.object({
     roleName: roleNameValidator,
     permissions: permissionsValidator,
     description: descriptionValidator.optional()
-}, REQUIRED_OBJECT);
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { addRoleByTenantIdValidator };

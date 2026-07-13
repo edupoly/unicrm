@@ -1,8 +1,5 @@
 # ADR 0005: Polymorphic Inheritance for Products and Services (The Parent-Child Schema)
 
-## Status
-Accepted
-
 ## Date
 2026-07-01
 

@@ -12,6 +12,7 @@ const { usersRouter } = require('../routes/users');
 const { itemsRouter } = require('../routes/items');
 
 const errorHandler = require('../middlewares/errorHandler');
+const { customersRouter } = require('../routes/customers');
 
 // middlewares
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use('/api/permissions', permissionsRouter);
 app.use('/api/roles', rolesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/items', itemsRouter);
+app.use('/api/customers', customersRouter);
 
 // error handler
 app.use(errorHandler);

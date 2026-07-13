@@ -8,7 +8,7 @@ const deleteRoleByRoleId = async (req, res, next) => {
 
     const result = await deleteRoleByRoleIdService(tenantId, id);
 
-    return sendResponse(res, 204, true, 'Role removed successfully');
+    return sendResponse(res, 200, true, 'Role removed successfully');
 };
 
 module.exports = { deleteRoleByRoleId };

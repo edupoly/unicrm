@@ -5,6 +5,6 @@ const userIdValidator = require("../uuid/userId");
 
 const deleteUserByUserIdValidator = z.object({
     id: userIdValidator
-});
+}, REQUIRED_OBJECT).strict();
 
 module.exports = { deleteUserByUserIdValidator };
