@@ -16,6 +16,9 @@ const { getCustomerByEmailOrMobileNumber } = require('../controllers/customers/g
 const { addCustomerByTenantIdValidator } = require('../validators/customers/addCustomerByTenantId');
 const { addCustomerByTenantId } = require('../controllers/customers/addCustomerByTenantId');
 
+const { deleteCustomerByCustomerIdValidator } = require('../validators/customers/deleteCustomerByCustomerId');
+const { deleteCustomerByCustomerId } = require('../controllers/customers/deleteCustomerByCustomerId');
+
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
 
@@ -37,6 +40,12 @@ customersRouter.post('/',
     authorize(PERMISSIONS.CUSTOMERS.CREATE),
     validation(addCustomerByTenantIdValidator),
     addCustomerByTenantId
+);
+
+customersRouter.delete('/',
+    authorize(PERMISSIONS.CUSTOMERS.DELETE),
+    validation(deleteCustomerByCustomerIdValidator),
+    deleteCustomerByCustomerId
 );
 
 module.exports = { customersRouter };
