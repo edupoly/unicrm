@@ -18,7 +18,26 @@ const addUserByTenantIdService = async (tenantId, name, mobileNumber, email, pas
       data: userRolesData
     });
 
-    return user;
+    const userWithRoles = await tx.user.findUnique({
+      where: { id: user.id },
+      select: {
+        id: true,
+        name: true,
+        mobileNumber: true,
+        email: true,
+        userRoles: {
+          select: {
+            role: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    return userWithRoles;
   });
 
   return result;

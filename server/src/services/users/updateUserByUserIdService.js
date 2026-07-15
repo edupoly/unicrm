@@ -10,15 +10,9 @@ const updateUserByUserIdService = async (tenantId, userId, data) => {
     if (email !== undefined) updateData.email = email;
     if (passwordHash !== undefined) updateData.passwordHash = passwordHash;
 
-    const user = await tx.user.update({
+    await tx.user.update({
       where: { id: userId, tenantId },
-      data: updateData,
-      select: {
-        id: true,
-        name: true,
-        mobileNumber: true,
-        email: true
-      }
+      data: updateData
     });
 
     if (roleIds !== undefined) {
@@ -33,7 +27,26 @@ const updateUserByUserIdService = async (tenantId, userId, data) => {
       });
     }
 
-    return user;
+    const userWithRoles = await tx.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        mobileNumber: true,
+        email: true,
+        userRoles: {
+          select: {
+            role: {
+              select: {
+                name: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    return userWithRoles;
   });
 
   return result;
