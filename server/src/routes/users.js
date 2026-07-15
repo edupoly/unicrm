@@ -10,7 +10,7 @@ import { addUserByTenantId } from '../controllers/users/addUserByTenantId.js';
 import { addUserByTenantIdValidator } from '../validators/users/addUserByTenantId.js';
 
 
-import { getUserByTenantId } from '../controllers/users/getUserByTenantId.js';
+import { getUserByTenantId } from '../controllers/users/getUsersByTenantId.js';
 
 
 import { updateUserByUserId } from '../controllers/users/updateUserByUserId.js';
