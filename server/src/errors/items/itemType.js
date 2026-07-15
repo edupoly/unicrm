@@ -1,5 +1,3 @@
-const itemTypeValidationErrors = {
-    INVALID_ITEM_TYPE: 'Type of the item should either PRODUCT or SERVICE'
-};
+const INVALID_ITEM_TYPE = 'Type of the item should either PRODUCT or SERVICE';
 
-module.exports = itemTypeValidationErrors;
+export { INVALID_ITEM_TYPE };

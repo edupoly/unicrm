@@ -1,7 +1,7 @@
-const { v4: uuidV4 } = require('uuid');
-const { addItemsByTenantIdService } = require("../../services/items/addItemsByTenantIdService");
-const sendResponse = require("../../utils/common/sendResponse");
-const { ITEM_TYPE_PRODUCT, ITEM_TYPE_SERVICE } = require('../../constants/items');
+import { v4 as uuidV4 } from 'uuid';
+import { addItemsByTenantIdService } from "../../services/items/addItemsByTenantIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
+import { ITEM_TYPE_PRODUCT, ITEM_TYPE_SERVICE } from '../../constants/items.js';
 
 const addItemsByTenantId = async (req, res, next) => {
     const { tenantId, userId } = req.user;
@@ -68,4 +68,4 @@ const addItemsByTenantId = async (req, res, next) => {
     return sendResponse(res, 201, true, 'Items created successfully', responseData);
 };
 
-module.exports = { addItemsByTenantId };
+export { addItemsByTenantId };

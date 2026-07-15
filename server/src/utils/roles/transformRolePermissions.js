@@ -8,4 +8,4 @@ const transformRolePermissions = (role) => {
     };
 };
 
-module.exports = { transformRolePermissions };
+export { transformRolePermissions };

@@ -1,9 +1,9 @@
-const { default: z } = require("zod");
-const itemIdValidator = require("../uuid/itemId");
-const { REQUIRED_OBJECT } = require("../../errors/common/commonValidation");
+import { z } from "zod";
+import itemIdValidator from "../uuid/itemId.js";
+import { REQUIRED_OBJECT } from "../../errors/common/commonValidation.js";
 
 const getItemByItemIdValidator = z.object({
     id: itemIdValidator
 }, REQUIRED_OBJECT).strict();
 
-module.exports = { getItemByItemIdValidator };
+export { getItemByItemIdValidator };

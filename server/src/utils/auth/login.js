@@ -39,7 +39,7 @@ const getResponsePayload = (name, email, mobileNumber, businessName, roles, perm
     return { name, email, mobileNumber, businessName, roles, permissions };
 };
 
-module.exports = {
+export {
     verifyEmailOrMobile, extractUserData,
     getUserSessionJwtPayload,
     getCompanySelectionSessionJwtPayload,

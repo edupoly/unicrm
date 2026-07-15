@@ -3,4 +3,4 @@ const businessNameValidationErrors = {
     INVALID_BUSINESS_NAME: 'Select or Enter a valid business name'
 };
 
-module.exports = businessNameValidationErrors;
+export default businessNameValidationErrors;

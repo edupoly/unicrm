@@ -1,8 +1,8 @@
-const { PrismaClient } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 
 const prismaDB = new PrismaClient();
 
-module.exports = prismaDB;
+export default prismaDB;
 
 // const tenantId = 'a7865a05-e67b-4609-970d-aa8393b14204';
 

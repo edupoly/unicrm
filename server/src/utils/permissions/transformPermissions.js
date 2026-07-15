@@ -20,4 +20,4 @@ const transformPermissions = (permissionsArray) => {
     return transformPermissionsObj;
 };
 
-module.exports = { transformPermissions };
+export { transformPermissions };

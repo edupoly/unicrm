@@ -1,5 +1,5 @@
-const { getItemByItemIdService } = require("../../services/items/getItemByItemIdService");
-const sendResponse = require("../../utils/common/sendResponse");
+import { getItemByItemIdService } from "../../services/items/getItemByItemIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const getItemByItemId = async (req, res, next) => {
     const { id: itemId } = req.params;
@@ -11,4 +11,4 @@ const getItemByItemId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Item fetched successfully', item);
 };
 
-module.exports = { getItemByItemId };
+export { getItemByItemId };

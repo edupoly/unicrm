@@ -3,4 +3,4 @@ const permissionsValidationErrors = {
     INVALID_PERMISSIONS: 'Select at least one permission'
 };
 
-module.exports = permissionsValidationErrors;
+export default permissionsValidationErrors;

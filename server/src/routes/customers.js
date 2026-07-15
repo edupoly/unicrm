@@ -1,27 +1,27 @@
-const express = require('express');
+import express from 'express';
 
-const { getGlobalPermissions } = require('../config/permissions');
+import { getGlobalPermissions } from '../config/permissions.js';
 
-const { PERMISSIONS_CONSTANTS } = require('../constants/permissions');
-const { REQUEST_INPUT_PARAMS } = require('../constants/common');
+import { PERMISSIONS_CONSTANTS } from '../constants/permissions.js';
+import { REQUEST_INPUT_PARAMS } from '../constants/common.js';
 
-const { authorize } = require('../middlewares/authorize');
-const validation = require('../middlewares/validation');
+import { authorize } from '../middlewares/authorize.js';
+import validation from '../middlewares/validation.js';
 
 
-const { getCustomersByTenantId } = require('../controllers/customers/getCustomersByTenantId');
+import { getCustomersByTenantId } from '../controllers/customers/getCustomersByTenantId.js';
 
-const { getCustomerByEmailOrMobileNumberValidator } = require('../validators/customers/getCustomerByEmailOrMobileNumber');
-const { getCustomerByEmailOrMobileNumber } = require('../controllers/customers/getCustomerByEmailOrMobileNumber');
+import { getCustomerByEmailOrMobileNumberValidator } from '../validators/customers/getCustomerByEmailOrMobileNumber.js';
+import { getCustomerByEmailOrMobileNumber } from '../controllers/customers/getCustomerByEmailOrMobileNumber.js';
 
-const { addCustomerByTenantIdValidator } = require('../validators/customers/addCustomerByTenantId');
-const { addCustomerByTenantId } = require('../controllers/customers/addCustomerByTenantId');
+import { addCustomerByTenantIdValidator } from '../validators/customers/addCustomerByTenantId.js';
+import { addCustomerByTenantId } from '../controllers/customers/addCustomerByTenantId.js';
 
-const { deleteCustomerByCustomerIdValidator } = require('../validators/customers/deleteCustomerByCustomerId');
-const { deleteCustomerByCustomerId } = require('../controllers/customers/deleteCustomerByCustomerId');
+import { deleteCustomerByCustomerIdValidator } from '../validators/customers/deleteCustomerByCustomerId.js';
+import { deleteCustomerByCustomerId } from '../controllers/customers/deleteCustomerByCustomerId.js';
 
-const { updateCustomerByCustomerIdValidator } = require('../validators/customers/updateCustomerByCustomerId');
-const { updateCustomerByCustomerId } = require('../controllers/customers/updateCustomerByCustomerId');
+import { updateCustomerByCustomerIdValidator } from '../validators/customers/updateCustomerByCustomerId.js';
+import { updateCustomerByCustomerId } from '../controllers/customers/updateCustomerByCustomerId.js';
 
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
@@ -58,4 +58,4 @@ customersRouter.delete('/',
     deleteCustomerByCustomerId
 );
 
-module.exports = { customersRouter };
+export { customersRouter };

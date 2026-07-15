@@ -1,5 +1,5 @@
-const prismaDB = require("../../config/database");
-const { ITEM_FIELDS_OBJ } = require("../../constants/items");
+import prismaDB from "../../config/database.js";
+import { ITEM_FIELDS_OBJ } from "../../constants/items.js";
 
 const getItemByItemIdService = async (itemId, tenantId) => {
     const item = await prismaDB.item.findUniqueOrThrow({
@@ -12,4 +12,4 @@ const getItemByItemIdService = async (itemId, tenantId) => {
     return item;
 };
 
-module.exports = { getItemByItemIdService };
+export { getItemByItemIdService };

@@ -1,6 +1,4 @@
-const itemIdValidationErrors = {
-    REQUIRED_ITEM_ID: 'Item ID is Required',
-    INVALID_ITEM_ID: 'Item ID is Invalid'
-};
+const REQUIRED_ITEM_ID = 'Item ID is Required';
+const INVALID_ITEM_ID = 'Item ID is Invalid';
 
-module.exports = itemIdValidationErrors;
+export { REQUIRED_ITEM_ID, INVALID_ITEM_ID };

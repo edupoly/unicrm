@@ -1,23 +1,23 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-const registerBusinessAndOwner = require('../../services/auth/register');
+import registerBusinessAndOwner from '../../services/auth/register.js';
 
-const getCookieOptions = require('../../utils/common/getCookieOptions');
-const sendResponse = require('../../utils/common/sendResponse');
+import getCookieOptions from '../../utils/common/getCookieOptions.js';
+import sendResponse from '../../utils/common/sendResponse.js';
 
-const {
+import {
     getUserSessionJwtPayload,
     getResponsePayload
-} = require('../../utils/auth/login');
+} from '../../utils/auth/login.js';
 
-const { createJwtToken } = require('../../utils/common/createVerifyJwtToken');
+import { createJwtToken } from '../../utils/common/createVerifyJwtToken.js';
 
-const {
+import {
     USER_SESSION_TIME_JWT,
     USER_SESSION_TIME_COOKIE,
     USER_SESSION_COOKIE_NAME,
     REGISTRATION_SUCCESSFUL_MSG
-} = require('../../constants/auth');
+} from '../../constants/auth.js';
 
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
@@ -54,4 +54,4 @@ const register = async (req, res, next) => {
     );
 };
 
-module.exports = { register };
+export { register };

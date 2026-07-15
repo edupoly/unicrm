@@ -1,8 +1,8 @@
-const { default: z } = require("zod");
-const { REQUIRED_IS_ON_SALE } = require("../../../errors/items/isOnSale");
+import { z } from "zod";
+import { REQUIRED_IS_ON_SALE } from "../../../errors/items/isOnSale.js";
 
 const isOnSaleValidator = z
     .boolean(REQUIRED_IS_ON_SALE)
     .default(true);
 
-module.exports = isOnSaleValidator;
+export default isOnSaleValidator;

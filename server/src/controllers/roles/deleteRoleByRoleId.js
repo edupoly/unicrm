@@ -1,5 +1,5 @@
-const { deleteRoleByRoleIdService } = require("../../services/roles/deleteRoleByRoleIdService");
-const sendResponse = require("../../utils/common/sendResponse");
+import { deleteRoleByRoleIdService } from "../../services/roles/deleteRoleByRoleIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const deleteRoleByRoleId = async (req, res, next) => {
     const { id } = req.body;
@@ -11,4 +11,4 @@ const deleteRoleByRoleId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Role removed successfully');
 };
 
-module.exports = { deleteRoleByRoleId };
+export { deleteRoleByRoleId };

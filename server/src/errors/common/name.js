@@ -3,4 +3,4 @@ const nameValidationErrors = {
     INVALID_NAME: 'Enter a valid name'
 };
 
-module.exports = nameValidationErrors;
+export default nameValidationErrors;

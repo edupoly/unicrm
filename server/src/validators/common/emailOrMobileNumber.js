@@ -1,11 +1,13 @@
-const { z } = require("zod");
+import { z } from "zod";
 
-const emailValidator = require("./email");
-const mobileNumberValidator = require("./mobile");
+import emailValidator from "./email.js";
+import mobileNumberValidator from "./mobile.js";
 
-const { INVALID_EMAIL_OR_MOBILE_NUMBER } = require("../../errors/common/emailOrMobileNumber");
+import emailOrMobileNumberValidationErrors from "../../errors/common/emailOrMobileNumber.js";
+
+const { INVALID_EMAIL_OR_MOBILE_NUMBER } = emailOrMobileNumberValidationErrors;
 
 const emailOrMobileNumberValidator = z
     .union([emailValidator, mobileNumberValidator], INVALID_EMAIL_OR_MOBILE_NUMBER);
 
-module.exports = emailOrMobileNumberValidator;
+export default emailOrMobileNumberValidator;

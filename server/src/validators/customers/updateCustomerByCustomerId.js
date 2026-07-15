@@ -1,10 +1,10 @@
-const { default: z } = require("zod");
-const customerIdValidator = require("../uuid/customerId");
-const nameValidator = require("../common/name");
-const mobileNumberValidator = require("../common/mobile");
-const emailValidator = require("../common/email");
-const addressValidator = require("../common/address");
-const customFieldsValidator = require("../common/customFields");
+import { z } from "zod";
+import customerIdValidator from "../uuid/customerId.js";
+import nameValidator from "../common/name.js";
+import mobileNumberValidator from "../common/mobile.js";
+import emailValidator from "../common/email.js";
+import addressValidator from "../common/address.js";
+import customFieldsValidator from "../common/customFields.js";
 
 const updateCustomerByCustomerIdValidator = z.object({
     id: customerIdValidator,
@@ -15,4 +15,4 @@ const updateCustomerByCustomerIdValidator = z.object({
     customFields: customFieldsValidator.optional()
 });
 
-module.exports = { updateCustomerByCustomerIdValidator };
+export { updateCustomerByCustomerIdValidator };

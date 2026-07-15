@@ -1,8 +1,8 @@
-const { z } = require('zod');
-const { REQUIRED_TENANT_ID, INVALID_TENANT_ID } = require('../../errors/uuid/tenantId');
+import { z } from 'zod';
+import { REQUIRED_TENANT_ID, INVALID_TENANT_ID } from '../../errors/uuid/tenantId.js';
 
 const tenantIdValidator = z
     .string(REQUIRED_TENANT_ID)
     .uuid(INVALID_TENANT_ID);
 
-module.exports = tenantIdValidator;
+export default tenantIdValidator;

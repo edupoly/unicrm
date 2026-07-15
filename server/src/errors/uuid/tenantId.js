@@ -1,6 +1,4 @@
-const tenantIdValidationErrors = {
-    REQUIRED_TENANT_ID: 'Tenant ID is Required',
-    INVALID_TENANT_ID: 'Tenant ID is Invalid'
-};
+const REQUIRED_TENANT_ID = 'Tenant ID is Required';
+const INVALID_TENANT_ID = 'Tenant ID is Invalid';
 
-module.exports = tenantIdValidationErrors;
+export { REQUIRED_TENANT_ID, INVALID_TENANT_ID };

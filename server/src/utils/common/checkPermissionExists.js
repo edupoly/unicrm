@@ -1,5 +1,5 @@
-const { getGlobalPermissions } = require("../../config/permissions");
-const { PERMISSIONS_CONSTANTS } = require("../../constants/permissions");
+import { getGlobalPermissions } from "../../config/permissions.js";
+import { PERMISSIONS_CONSTANTS } from "../../constants/permissions.js";
 
 const checkPermissionExists = (
     permission,
@@ -14,4 +14,4 @@ const checkPermissionExists = (
     return isPermissionExists;
 };
 
-module.exports = { checkPermissionExists };
+export { checkPermissionExists };

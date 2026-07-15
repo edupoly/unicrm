@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-const { addUserByTenantIdService } = require('../../services/users/addUserByTenantIdService');
-const sendResponse = require('../../utils/common/sendResponse');
-const { checkAllRolesExist } = require('../../utils/common/checkRoleExists');
+import { addUserByTenantIdService } from '../../services/users/addUserByTenantIdService.js';
+import sendResponse from '../../utils/common/sendResponse.js';
+import { checkAllRolesExist } from '../../utils/common/checkRoleExists.js';
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
 
@@ -12,21 +12,21 @@ const { BCRYPT_SALT_ROUNDS } = process.env;
  * Output: 201 { success, message, data: { id, name, mobileNumber, email } }
  */
 const addUserByTenantId = async (req, res, next) => {
-  const { tenantId } = req.user;
+    const { tenantId } = req.user;
 
-  const { name, mobileNumber, email, password, roleIds } = req.body;
+    const { name, mobileNumber, email, password, roleIds } = req.body;
 
-  const allRolesExist = await checkAllRolesExist(roleIds);
+    const allRolesExist = await checkAllRolesExist(roleIds);
 
-  if (!allRolesExist) {
-    return sendResponse(res, 400, false, "One or more provided roles don't exist");
-  }
+    if (!allRolesExist) {
+        return sendResponse(res, 400, false, "One or more provided roles don't exist");
+    }
 
-  const passwordHash = await bcrypt.hash(password, Number(BCRYPT_SALT_ROUNDS));
+    const passwordHash = await bcrypt.hash(password, Number(BCRYPT_SALT_ROUNDS));
 
-  const user = await addUserByTenantIdService(tenantId, name, mobileNumber, email, passwordHash, roleIds);
+    const user = await addUserByTenantIdService(tenantId, name, mobileNumber, email, passwordHash, roleIds);
 
-  return sendResponse(res, 201, true, 'User created successfully', user);
+    return sendResponse(res, 201, true, 'User created successfully', user);
 };
 
-module.exports = { addUserByTenantId };
+export { addUserByTenantId };

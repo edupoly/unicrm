@@ -1,11 +1,13 @@
-const { ZodError } = require("zod");
-const { PrismaClientKnownRequestError, PrismaClientValidationError } = require("@prisma/client/runtime/library");
-const { JsonWebTokenError } = require("jsonwebtoken");
+import { ZodError } from "zod";
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
+import pkg from "jsonwebtoken";
 
-const sendResponse = require("../utils/common/sendResponse");
-const getZodErrors = require("../utils/common/getZodErrors");
+import sendResponse from "../utils/common/sendResponse.js";
+import getZodErrors from "../utils/common/getZodErrors.js";
 
-const { INVALID_REQUEST } = require("../errors/common/commonValidation");
+import { INVALID_REQUEST } from "../errors/common/commonValidation.js";
+
+const { JsonWebTokenError } = pkg;
 
 const errorHandler = (err, req, res, next) => {
     console.log(err);
@@ -35,4 +37,4 @@ const errorHandler = (err, req, res, next) => {
     return sendResponse(res, 500, false, 'Something went wrong in the Server!');
 };
 
-module.exports = errorHandler;
+export default errorHandler;

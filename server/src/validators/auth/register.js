@@ -1,12 +1,12 @@
-const { z } = require("zod");
+import { z } from "zod";
 
-const businessNameValidator = require("../common/businessName");
-const nameValidator = require("../common/name");
-const emailValidator = require("../common/email");
-const mobileNumberValidator = require("../common/mobile");
-const passwordValidator = require("../common/password");
-const roleNameValidator = require("../common/role");
-const { REQUIRED_OBJECT } = require("../../errors/common/commonValidation");
+import businessNameValidator from "../common/businessName.js";
+import nameValidator from "../common/name.js";
+import emailValidator from "../common/email.js";
+import mobileNumberValidator from "../common/mobile.js";
+import passwordValidator from "../common/password.js";
+import roleNameValidator from "../common/role.js";
+import { REQUIRED_OBJECT } from "../../errors/common/commonValidation.js";
 
 const registerValidator = z.object({
     businessName: businessNameValidator,
@@ -17,4 +17,4 @@ const registerValidator = z.object({
     roleName: roleNameValidator
 }, REQUIRED_OBJECT).strict();
 
-module.exports = { registerValidator };
+export { registerValidator };

@@ -1,5 +1,5 @@
-const updateItemByItemIdService = require("../../services/items/updateItemByItemIdService");
-const sendResponse = require("../../utils/common/sendResponse");
+import updateItemByItemIdService from "../../services/items/updateItemByItemIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const updateItemByItemId = async (req, res, next) => {
     const { tenantId, userId } = req.user;
@@ -32,4 +32,4 @@ const updateItemByItemId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Item updated successfully', result);
 };
 
-module.exports = { updateItemByItemId };
+export { updateItemByItemId };

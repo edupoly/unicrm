@@ -10,4 +10,4 @@ const getCookieOptions = (maxAge) => {
     }
 };
 
-module.exports = getCookieOptions;
+export default getCookieOptions;

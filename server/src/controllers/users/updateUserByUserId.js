@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-const { updateUserByUserIdService } = require('../../services/users/updateUserByUserIdService');
-const sendResponse = require('../../utils/common/sendResponse');
-const { checkAllRolesExist } = require('../../utils/common/checkRoleExists');
+import { updateUserByUserIdService } from '../../services/users/updateUserByUserIdService.js';
+import sendResponse from '../../utils/common/sendResponse.js';
+import { checkAllRolesExist } from '../../utils/common/checkRoleExists.js';
 
 const { BCRYPT_SALT_ROUNDS } = process.env;
 
@@ -37,4 +37,4 @@ const updateUserByUserId = async (req, res, next) => {
   return sendResponse(res, 200, true, 'User updated successfully', user);
 };
 
-module.exports = { updateUserByUserId };
+export { updateUserByUserId };

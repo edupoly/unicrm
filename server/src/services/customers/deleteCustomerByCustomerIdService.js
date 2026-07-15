@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const deleteCustomerByCustomerIdService = async (tenantId, customerId) => {
     const result = await prismaDB.customer.delete({
@@ -7,4 +7,4 @@ const deleteCustomerByCustomerIdService = async (tenantId, customerId) => {
     return result;
 };
 
-module.exports = { deleteCustomerByCustomerIdService };
+export { deleteCustomerByCustomerIdService };

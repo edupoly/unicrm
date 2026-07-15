@@ -1,5 +1,5 @@
-const prismaDB = require("../../config/database");
-const { ITEM_FIELDS_OBJ } = require("../../constants/items");
+import prismaDB from "../../config/database.js";
+import { ITEM_FIELDS_OBJ } from "../../constants/items.js";
 
 const addItemsByTenantIdService = async (items, products, services) => {
     const result = await prismaDB.$transaction(async (tx) => {
@@ -31,4 +31,4 @@ const addItemsByTenantIdService = async (items, products, services) => {
     return result;
 };
 
-module.exports = { addItemsByTenantIdService };
+export { addItemsByTenantIdService };

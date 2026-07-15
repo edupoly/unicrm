@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const updateUserByUserIdService = async (tenantId, userId, data) => {
   const { name, mobileNumber, email, passwordHash, roleIds } = data;
@@ -39,4 +39,4 @@ const updateUserByUserIdService = async (tenantId, userId, data) => {
   return result;
 };
 
-module.exports = { updateUserByUserIdService };
+export { updateUserByUserIdService };

@@ -1,8 +1,8 @@
-const { addRoleByTenantIdService } = require("../../services/roles/addRoleByTenantIdService");
+import { addRoleByTenantIdService } from "../../services/roles/addRoleByTenantIdService.js";
 
-const sendResponse = require("../../utils/common/sendResponse");
+import sendResponse from "../../utils/common/sendResponse.js";
 
-const { checkPermissionExists } = require("../../utils/common/checkPermissionExists");
+import { checkPermissionExists } from "../../utils/common/checkPermissionExists.js";
 
 
 const addRoleByTenantId = async (req, res, next) => {
@@ -23,4 +23,4 @@ const addRoleByTenantId = async (req, res, next) => {
     return sendResponse(res, 201, true, 'Role created successfully', role);
 };
 
-module.exports = { addRoleByTenantId };
+export { addRoleByTenantId };

@@ -1,7 +1,7 @@
-const { getCustomerByEmailOrMobileNumberService } = require("../../services/customers/getCustomerByEmailOrMobileNumberService");
-const { verifyEmailOrMobile } = require("../../utils/auth/login");
+import { getCustomerByEmailOrMobileNumberService } from "../../services/customers/getCustomerByEmailOrMobileNumberService.js";
+import { verifyEmailOrMobile } from "../../utils/auth/login.js";
 
-const sendResponse = require("../../utils/common/sendResponse");
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const getCustomerByEmailOrMobileNumber = async (req, res, next) => {
     const { tenantId } = req.user;
@@ -33,4 +33,4 @@ const getCustomerByEmailOrMobileNumber = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Customer fetched successfully', customer);
 };
 
-module.exports = { getCustomerByEmailOrMobileNumber };
+export { getCustomerByEmailOrMobileNumber };

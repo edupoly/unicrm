@@ -1,27 +1,27 @@
-const express = require('express');
+import express from 'express';
 
-const { getGlobalPermissions } = require('../config/permissions');
+import { getGlobalPermissions } from '../config/permissions.js';
 
-const { PERMISSIONS_CONSTANTS } = require('../constants/permissions');
-const { REQUEST_INPUT_PARAMS } = require('../constants/common');
+import { PERMISSIONS_CONSTANTS } from '../constants/permissions.js';
+import { REQUEST_INPUT_PARAMS } from '../constants/common.js';
 
-const { authorize } = require('../middlewares/authorize');
-const validation = require('../middlewares/validation');
+import { authorize } from '../middlewares/authorize.js';
+import validation from '../middlewares/validation.js';
 
 
-const { getItemsByTenantId } = require('../controllers/items/getItemsByTenantId');
+import { getItemsByTenantId } from '../controllers/items/getItemsByTenantId.js';
 
-const { getItemByItemIdValidator } = require('../validators/items/getItemByItemId');
-const { getItemByItemId } = require('../controllers/items/getItemByItemId');
+import { getItemByItemIdValidator } from '../validators/items/getItemByItemId.js';
+import { getItemByItemId } from '../controllers/items/getItemByItemId.js';
 
-const { deleteItemByItemIdValidator } = require('../validators/items/deleteItemByItemId');
-const { deleteItemByItemId } = require('../controllers/items/deleteItemByItemId');
+import { deleteItemByItemIdValidator } from '../validators/items/deleteItemByItemId.js';
+import { deleteItemByItemId } from '../controllers/items/deleteItemByItemId.js';
 
-const { addItemsByTenantIdValidator } = require('../validators/items/addItemsByTenantId');
-const { addItemsByTenantId } = require('../controllers/items/addItemByTenantId');
+import { addItemsByTenantIdValidator } from '../validators/items/addItemsByTenantId.js';
+import { addItemsByTenantId } from '../controllers/items/addItemByTenantId.js';
 
-const { updateItemByItemIdValidator } = require('../validators/items/updateItemByItemId');
-const { updateItemByItemId } = require('../controllers/items/updateItemByItemId');
+import { updateItemByItemIdValidator } from '../validators/items/updateItemByItemId.js';
+import { updateItemByItemId } from '../controllers/items/updateItemByItemId.js';
 
 
 const PERMISSIONS = getGlobalPermissions(PERMISSIONS_CONSTANTS.GLOBAL_PERMISSIONS_OBJ);
@@ -57,4 +57,4 @@ itemsRouter.delete('/',
     deleteItemByItemId
 );
 
-module.exports = { itemsRouter };
+export { itemsRouter };

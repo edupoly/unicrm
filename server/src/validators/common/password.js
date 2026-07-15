@@ -1,8 +1,10 @@
-const { z } = require("zod");
-const { REQUIRED_PASSWORD, INVALID_PASSWORD } = require("../../errors/common/password");
+import { z } from "zod";
+import passwordValidationErrors from "../../errors/common/password.js";
+
+const { REQUIRED_PASSWORD, INVALID_PASSWORD } = passwordValidationErrors;
 
 const passwordValidator = z
     .string(REQUIRED_PASSWORD)
     .min(8, INVALID_PASSWORD);
 
-module.exports = passwordValidator;
+export default passwordValidator;

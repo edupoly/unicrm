@@ -1,6 +1,6 @@
-const { getRolesByTenantIdService } = require("../../services/roles/getRolesByTenantIdService");
+import { getRolesByTenantIdService } from "../../services/roles/getRolesByTenantIdService.js";
 
-const sendResponse = require("../../utils/common/sendResponse");
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const getRolesByTenantId = async (req, res, next) => {
     const { tenantId } = req.user;
@@ -10,4 +10,4 @@ const getRolesByTenantId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Roles fetched successfully', roles);
 };
 
-module.exports = { getRolesByTenantId };
+export { getRolesByTenantId };

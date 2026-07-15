@@ -1,6 +1,6 @@
-const { NO_PERMISSIONS_IN_DB } = require("../../errors/common/commonValidation");
-const { getPermissionsService } = require("../../services/permissions/getPermissionsService");
-const sendResponse = require("../../utils/common/sendResponse");
+import { NO_PERMISSIONS_IN_DB } from "../../errors/common/commonValidation.js";
+import { getPermissionsService } from "../../services/permissions/getPermissionsService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const getPermissions = async (req, res, next) => {
     const permissions = await getPermissionsService();
@@ -10,4 +10,4 @@ const getPermissions = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Permissions fetched successfully', permissions);
 };
 
-module.exports = { getPermissions };
+export { getPermissions };

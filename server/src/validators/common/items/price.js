@@ -1,8 +1,8 @@
-const { default: z } = require("zod");
-const { REQUIRED_PRICE, INVALID_PRICE } = require("../../../errors/items/price");
+import { z } from "zod";
+import { REQUIRED_PRICE, INVALID_PRICE } from "../../../errors/items/price.js";
 
 const priceValidator = z
     .number(REQUIRED_PRICE)
     .min(1, INVALID_PRICE);
 
-module.exports = priceValidator;
+export default priceValidator;

@@ -1,6 +1,4 @@
-const permissionIdValidationErrors = {
-    REQUIRED_PERMISSION_ID: 'Permission ID is Required',
-    INVALID_PERMISSION_ID: 'Permission ID is Invalid'
-};
+const REQUIRED_PERMISSION_ID = 'Permission ID is Required';
+const INVALID_PERMISSION_ID = 'Permission ID is Invalid';
 
-module.exports = permissionIdValidationErrors;
+export { REQUIRED_PERMISSION_ID, INVALID_PERMISSION_ID };

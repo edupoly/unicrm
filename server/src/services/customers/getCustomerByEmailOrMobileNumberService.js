@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const getCustomerByEmailOrMobileNumberService = async (condition) => {
     const customer = await prismaDB.customer.findUniqueOrThrow({
@@ -24,4 +24,4 @@ const getCustomerByEmailOrMobileNumberService = async (condition) => {
     return customer;
 };
 
-module.exports = { getCustomerByEmailOrMobileNumberService };
+export { getCustomerByEmailOrMobileNumberService };

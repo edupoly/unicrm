@@ -1,5 +1,5 @@
-const sendResponse = require("../../utils/common/sendResponse");
-const { updateCustomerByCustomerIdService } = require("../../services/customers/updateCustomerByCustomerIdService");
+import sendResponse from "../../utils/common/sendResponse.js";
+import { updateCustomerByCustomerIdService } from "../../services/customers/updateCustomerByCustomerIdService.js";
 
 const updateCustomerByCustomerId = async (req, res, next) => {
     const { tenantId, userId } = req.user;
@@ -22,4 +22,4 @@ const updateCustomerByCustomerId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Customer updated successfully', updatedCustomer);
 };
 
-module.exports = { updateCustomerByCustomerId };
+export { updateCustomerByCustomerId };

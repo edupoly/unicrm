@@ -1,6 +1,6 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
-const { NO_PERMISSIONS_IN_DB } = require("../../errors/common/commonValidation");
+import { NO_PERMISSIONS_IN_DB } from "../../errors/common/commonValidation.js";
 
 const registerBusinessAndOwner = async (businessData) => {
     const {
@@ -46,4 +46,4 @@ const registerBusinessAndOwner = async (businessData) => {
     return { ...result, permissions };
 };
 
-module.exports = registerBusinessAndOwner;
+export default registerBusinessAndOwner;

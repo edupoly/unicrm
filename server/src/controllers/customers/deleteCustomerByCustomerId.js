@@ -1,5 +1,5 @@
-const { deleteCustomerByCustomerIdService } = require("../../services/customers/deleteCustomerByCustomerIdService");
-const sendResponse = require("../../utils/common/sendResponse");
+import { deleteCustomerByCustomerIdService } from "../../services/customers/deleteCustomerByCustomerIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const deleteCustomerByCustomerId = async (req, res, next) => {
     const { tenantId } = req.user;
@@ -11,4 +11,4 @@ const deleteCustomerByCustomerId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Customer removed successfully');
 };
 
-module.exports = { deleteCustomerByCustomerId };
+export { deleteCustomerByCustomerId };

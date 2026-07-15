@@ -1,7 +1,7 @@
-const { default: z } = require("zod");
-const priceValidator = require("./price");
-const quantityStockValidator = require("./quantityStock");
-const customFieldsValidator = require("../customFields");
+import { z } from "zod";
+import priceValidator from "./price.js";
+import quantityStockValidator from "./quantityStock.js";
+import customFieldsValidator from "../customFields.js";
 
 const productDetailsValidator = z.object({
     costPrice: priceValidator,
@@ -10,4 +10,4 @@ const productDetailsValidator = z.object({
     customFields: customFieldsValidator
 }).strict();
 
-module.exports = productDetailsValidator;
+export default productDetailsValidator;

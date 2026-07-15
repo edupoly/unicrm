@@ -1,9 +1,9 @@
-const { USER_SESSION_COOKIE_NAME } = require("../constants/auth");
+import { USER_SESSION_COOKIE_NAME } from "../constants/auth.js";
 
-const { verifyJwtToken } = require("../utils/common/createVerifyJwtToken");
+import { verifyJwtToken } from "../utils/common/createVerifyJwtToken.js";
 
-const sendResponse = require("../utils/common/sendResponse");
-const { checkPermissionExists } = require("../utils/common/checkPermissionExists");
+import sendResponse from "../utils/common/sendResponse.js";
+import { checkPermissionExists } from "../utils/common/checkPermissionExists.js";
 
 
 const authorize = (permission) => {
@@ -42,4 +42,4 @@ const authorize = (permission) => {
     }
 };
 
-module.exports = { authorize };
+export { authorize };

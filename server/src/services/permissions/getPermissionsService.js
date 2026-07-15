@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const getPermissionsService = async () => {
     const permissions = await prismaDB.permission.findMany({
@@ -7,4 +7,4 @@ const getPermissionsService = async () => {
     return permissions;
 };
 
-module.exports = { getPermissionsService };
+export { getPermissionsService };

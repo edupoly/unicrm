@@ -1,5 +1,5 @@
-const { deleteItemByItemIdService } = require("../../services/items/deleteItemByItemIdService");
-const sendResponse = require("../../utils/common/sendResponse");
+import { deleteItemByItemIdService } from "../../services/items/deleteItemByItemIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const deleteItemByItemId = async (req, res, next) => {
     const { tenantId } = req.user;
@@ -10,4 +10,4 @@ const deleteItemByItemId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Item deleted successfully');
 };
 
-module.exports = { deleteItemByItemId };
+export { deleteItemByItemId };

@@ -1,24 +1,24 @@
-const express = require('express');
+import express from 'express';
 
-const { getGlobalPermissions } = require('../config/permissions');
-const { PERMISSIONS_CONSTANTS } = require('../constants/permissions');
+import { getGlobalPermissions } from '../config/permissions.js';
+import { PERMISSIONS_CONSTANTS } from '../constants/permissions.js';
 
-const { authorize } = require('../middlewares/authorize');
-const validation = require('../middlewares/validation');
+import { authorize } from '../middlewares/authorize.js';
+import validation from '../middlewares/validation.js';
 
-const { addUserByTenantId } = require('../controllers/users/addUserByTenantId');
-const { addUserByTenantIdValidator } = require('../validators/users/addUserByTenantId');
-
-
-const { getUserByTenantId } = require('../controllers/users/getUserByTenantId');
+import { addUserByTenantId } from '../controllers/users/addUserByTenantId.js';
+import { addUserByTenantIdValidator } from '../validators/users/addUserByTenantId.js';
 
 
-const { updateUserByUserId } = require('../controllers/users/updateUserByUserId');
-const { updateUserByUserIdValidator } = require('../validators/users/updateUserByUserId');
+import { getUserByTenantId } from '../controllers/users/getUserByTenantId.js';
 
 
-const { deleteUserByUserId } = require('../controllers/users/deleteUserByUserId');
-const { deleteUserByUserIdValidator } = require('../validators/users/deleteUserByUserId');
+import { updateUserByUserId } from '../controllers/users/updateUserByUserId.js';
+import { updateUserByUserIdValidator } from '../validators/users/updateUserByUserId.js';
+
+
+import { deleteUserByUserId } from '../controllers/users/deleteUserByUserId.js';
+import { deleteUserByUserIdValidator } from '../validators/users/deleteUserByUserId.js';
 
 
 
@@ -35,4 +35,4 @@ usersRouter.patch('/',authorize(PERMISSIONS.USERS.UPDATE), validation(updateUser
 usersRouter.delete('/',authorize(PERMISSIONS.USERS.DELETE), validation(deleteUserByUserIdValidator), deleteUserByUserId);
 
 
-module.exports = { usersRouter };
+export { usersRouter };

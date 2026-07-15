@@ -1,9 +1,9 @@
-const { default: z } = require("zod");
-const emailOrMobileNumberValidator = require("../common/emailOrMobileNumber");
-const { REQUIRED_OBJECT } = require("../../errors/common/commonValidation");
+import { z } from "zod";
+import emailOrMobileNumberValidator from "../common/emailOrMobileNumber.js";
+import { REQUIRED_OBJECT } from "../../errors/common/commonValidation.js";
 
 const getCustomerByEmailOrMobileNumberValidator = z.object({
     identifier: emailOrMobileNumberValidator
 }, REQUIRED_OBJECT).strict();
 
-module.exports = { getCustomerByEmailOrMobileNumberValidator };
+export { getCustomerByEmailOrMobileNumberValidator };

@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const userInclude = {
     userRoles: {
@@ -42,4 +42,4 @@ const findUser = async (id, tenantId) => {
     return user;
 }
 
-module.exports = { findMultipleUsers, findUser };
+export { findMultipleUsers, findUser };

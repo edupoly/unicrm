@@ -1,8 +1,8 @@
-const { updateRoleByRoleIdService } = require("../../services/roles/updateRoleByRoleIdService");
+import { updateRoleByRoleIdService } from "../../services/roles/updateRoleByRoleIdService.js";
 
-const { checkPermissionExists } = require("../../utils/common/checkPermissionExists");
+import { checkPermissionExists } from "../../utils/common/checkPermissionExists.js";
 
-const sendResponse = require("../../utils/common/sendResponse");
+import sendResponse from "../../utils/common/sendResponse.js";
 
 
 const updateRoleByRoleId = async (req, res, next) => {
@@ -29,4 +29,4 @@ const updateRoleByRoleId = async (req, res, next) => {
     sendResponse(res, 200, true, 'Role updated successfully', { ...updatedRole });
 };
 
-module.exports = { updateRoleByRoleId };
+export { updateRoleByRoleId };

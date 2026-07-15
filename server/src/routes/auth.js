@@ -1,13 +1,13 @@
-const express = require('express');
+import express from 'express';
 
-const validation = require('../middlewares/validation');
+import validation from '../middlewares/validation.js';
 
 
-const { loginValidator, verifyUserCompanyValidator } = require('../validators/auth/login');
-const { login, verifyUserCompany } = require('../controllers/auth/login');
+import { loginValidator, verifyUserCompanyValidator } from '../validators/auth/login.js';
+import { login, verifyUserCompany } from '../controllers/auth/login.js';
 
-const { registerValidator } = require('../validators/auth/register');
-const { register } = require('../controllers/auth/register');
+import { registerValidator } from '../validators/auth/register.js';
+import { register } from '../controllers/auth/register.js';
 
 
 const authRouter = express.Router();
@@ -87,4 +87,4 @@ authRouter.post('/login/verify-user-company',
 authRouter.post('/register', validation(registerValidator), register);
 
 
-module.exports = { authRouter };
+export { authRouter };

@@ -1,5 +1,5 @@
-const prismaDB = require("../../config/database");
-const { transformRolePermissions } = require("../../utils/roles/transformRolePermissions");
+import prismaDB from "../../config/database.js";
+import { transformRolePermissions } from "../../utils/roles/transformRolePermissions.js";
 
 const getRolesByTenantIdService = async (tenantId) => {
     const roles = await prismaDB.role.findMany({
@@ -23,4 +23,4 @@ const getRolesByTenantIdService = async (tenantId) => {
     return transformedRoles;
 };
 
-module.exports = { getRolesByTenantIdService };
+export { getRolesByTenantIdService };

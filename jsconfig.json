@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "ES2022"
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

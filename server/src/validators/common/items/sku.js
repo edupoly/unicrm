@@ -1,5 +1,5 @@
-const { default: z } = require("zod");
-const { INVALID_SKU } = require("../../../errors/items/sku");
+import { z } from "zod";
+import { INVALID_SKU } from "../../../errors/items/sku.js";
 
 const skuValidator = z
     .string()
@@ -7,4 +7,4 @@ const skuValidator = z
     .default(null)
     .optional();
 
-module.exports = skuValidator;
+export default skuValidator;

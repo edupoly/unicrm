@@ -1,8 +1,10 @@
-const { default: z } = require("zod");
-const { REQUIRED_NAME, INVALID_NAME } = require("../../errors/common/name");
+import { z } from "zod";
+import nameValidationErrors from "../../errors/common/name.js";
+
+const { REQUIRED_NAME, INVALID_NAME } = nameValidationErrors;
 
 const nameValidator = z
     .string(REQUIRED_NAME)
     .min(3, INVALID_NAME);
 
-module.exports = nameValidator;
+export default nameValidator;

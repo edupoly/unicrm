@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const updateCustomerByCustomerIdService = async (tenantId, customerId, toUpdateData) => {
     const updatedCustomer = await prismaDB.customer.update({
@@ -21,4 +21,4 @@ const updateCustomerByCustomerIdService = async (tenantId, customerId, toUpdateD
     return updatedCustomer;
 };
 
-module.exports = { updateCustomerByCustomerIdService };
+export { updateCustomerByCustomerIdService };

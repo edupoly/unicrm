@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
 
-const { getPermissions } = require('../controllers/permissions/getPermissions');
+import { getPermissions } from '../controllers/permissions/getPermissions.js';
 
 const permissionsRouter = express.Router();
 
 permissionsRouter.get('/', getPermissions);
 
-module.exports = { permissionsRouter };
+export { permissionsRouter };

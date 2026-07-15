@@ -3,4 +3,4 @@ const addressValidationErrors = {
     INVALID_ADDRESS: 'Enter the valid address at least 6 characters'
 };
 
-module.exports = addressValidationErrors;
+export default addressValidationErrors;

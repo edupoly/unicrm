@@ -1,8 +1,8 @@
-const { PERMISSIONS_CONSTANTS } = require("../constants/permissions");
-const { NO_PERMISSIONS_IN_DB } = require("../errors/common/commonValidation");
+import { PERMISSIONS_CONSTANTS } from "../constants/permissions.js";
+import { NO_PERMISSIONS_IN_DB } from "../errors/common/commonValidation.js";
 
-const { getPermissionsService } = require("../services/permissions/getPermissionsService");
-const { transformPermissions } = require("../utils/permissions/transformPermissions");
+import { getPermissionsService } from "../services/permissions/getPermissionsService.js";
+import { transformPermissions } from "../utils/permissions/transformPermissions.js";
 
 let PERMISSIONS_OBJ = null;
 let PERMISSIONS_ARRAY = null;
@@ -27,4 +27,4 @@ const getGlobalPermissions = (type) => {
         : PERMISSIONS_ARRAY;
 };
 
-module.exports = { getGlobalPermissions, initPermissions };
+export { getGlobalPermissions, initPermissions };

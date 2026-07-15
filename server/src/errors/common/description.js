@@ -3,4 +3,4 @@ const descriptionValidationErrors = {
     INVALID_DESCRIPTION: 'Enter the description at least 7 characters'
 };
 
-module.exports = descriptionValidationErrors;
+export default descriptionValidationErrors;

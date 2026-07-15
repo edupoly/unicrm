@@ -1,6 +1,4 @@
-const roleIdValidationErrors = {
-    REQUIRED_ROLE_ID: 'Role ID is Required',
-    INVALID_ROLE_ID: 'Role ID is Invalid'
-};
+const REQUIRED_ROLE_ID = 'Role ID is Required';
+const INVALID_ROLE_ID = 'Role ID is Invalid';
 
-module.exports = roleIdValidationErrors;
+export { REQUIRED_ROLE_ID, INVALID_ROLE_ID };

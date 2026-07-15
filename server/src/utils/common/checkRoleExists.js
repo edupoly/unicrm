@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const checkAllRolesExist = async (roleIds) => {
     const roles = await prismaDB.role.findMany({
@@ -8,4 +8,4 @@ const checkAllRolesExist = async (roleIds) => {
     return roles.length === roleIds.length;
 };
 
-module.exports = { checkAllRolesExist };
+export { checkAllRolesExist };

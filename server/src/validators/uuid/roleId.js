@@ -1,8 +1,8 @@
-const { z } = require('zod');
-const { REQUIRED_ROLE_ID, INVALID_ROLE_ID } = require('../../errors/uuid/roleId');
+import { z } from 'zod';
+import { REQUIRED_ROLE_ID, INVALID_ROLE_ID } from '../../errors/uuid/roleId.js';
 
 const roleIdValidator = z
     .string(REQUIRED_ROLE_ID)
     .uuid(INVALID_ROLE_ID);
 
-module.exports = roleIdValidator;
+export default roleIdValidator;

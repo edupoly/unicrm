@@ -1,8 +1,10 @@
-const { default: z } = require("zod");
-const { INVALID_CUSTOM_FIELDS } = require("../../errors/common/customFields");
+import { z } from "zod";
+import customFieldsValidationErrors from "../../errors/common/customFields.js";
+
+const { INVALID_CUSTOM_FIELDS } = customFieldsValidationErrors;
 
 const customFieldsValidator = z
     .object({}, INVALID_CUSTOM_FIELDS)
     .optional();
 
-module.exports = customFieldsValidator;
+export default customFieldsValidator;

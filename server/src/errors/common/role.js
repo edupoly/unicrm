@@ -3,4 +3,4 @@ const roleValidationErrors = {
     INVALID_ROLE: 'Select or Enter a valid role with at least 3 characters'
 };
 
-module.exports = roleValidationErrors;
+export default roleValidationErrors;

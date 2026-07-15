@@ -1,8 +1,8 @@
-const { default: z } = require("zod");
-const customerIdValidator = require("../uuid/customerId");
+import { z } from "zod";
+import customerIdValidator from "../uuid/customerId.js";
 
 const deleteCustomerByCustomerIdValidator = z.object({
     id: customerIdValidator
 });
 
-module.exports = { deleteCustomerByCustomerIdValidator };
+export { deleteCustomerByCustomerIdValidator };

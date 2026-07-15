@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
-const readline = require("readline");
-const { execSync } = require("child_process");
+import fs from "fs";
+import path from "path";
+import readline from "readline";
+import { execSync } from "child_process";
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 });
 
 // Targeted directory
-const serverPath = path.join(__dirname, "server");
+const serverPath = path.join(import.meta.dirname, "server");
 const envPath = path.join(serverPath, ".env");
 
 function ask(question) {

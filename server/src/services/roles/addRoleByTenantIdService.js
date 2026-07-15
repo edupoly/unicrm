@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const addRoleByTenantIdService = async (tenantId, roleName, description, permissions) => {
 
@@ -31,4 +31,4 @@ const addRoleByTenantIdService = async (tenantId, roleName, description, permiss
     return result;
 };
 
-module.exports = { addRoleByTenantIdService };
+export { addRoleByTenantIdService };

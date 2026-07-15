@@ -1,5 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
-const { getPermissionsService } = require('../src/services/permissions/getPermissionsService');
+import { PrismaClient } from '@prisma/client';
+import { getPermissionsService } from '../src/services/permissions/getPermissionsService.js';
 
 const prisma = new PrismaClient();
 
@@ -37,7 +37,7 @@ const systemPermissions = [
 
 async function seedGlobalData() {
 
-    const DBPermissions = getPermissionsService();
+    const DBPermissions = await getPermissionsService();
 
     if (DBPermissions.length === systemPermissions.length) {
         return console.log("Permissions Seeding Already Completed...")

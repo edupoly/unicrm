@@ -1,9 +1,9 @@
-const { default: z } = require("zod");
-const roleIdValidator = require("../uuid/roleId");
-const nameValidator = require("../common/name");
-const descriptionValidator = require("../common/description");
-const permissionsValidator = require("../common/permissions");
-const { REQUIRED_OBJECT } = require("../../errors/common/commonValidation");
+import { z } from "zod";
+import roleIdValidator from "../uuid/roleId.js";
+import nameValidator from "../common/name.js";
+import descriptionValidator from "../common/description.js";
+import permissionsValidator from "../common/permissions.js";
+import { REQUIRED_OBJECT } from "../../errors/common/commonValidation.js";
 
 const updateRoleByRoleIdValidator = z.object({
     id: roleIdValidator,
@@ -12,4 +12,4 @@ const updateRoleByRoleIdValidator = z.object({
     permissions: permissionsValidator.optional()
 }, REQUIRED_OBJECT).strict();
 
-module.exports = { updateRoleByRoleIdValidator };
+export { updateRoleByRoleIdValidator };

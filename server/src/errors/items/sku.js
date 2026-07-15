@@ -1,5 +1,3 @@
-const skuValidationErrors = {
-    INVALID_SKU: 'Enter a valid Stock Keeping Unit (SKU)'
-};
+const INVALID_SKU = 'Enter a valid Stock Keeping Unit (SKU)';
 
-module.exports = skuValidationErrors;
+export { INVALID_SKU };

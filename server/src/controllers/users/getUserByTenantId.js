@@ -1,6 +1,6 @@
-const { getUsersByTenantIdService } = require("../../services/users/getUsersByTenantIdService");
+import { getUsersByTenantIdService } from "../../services/users/getUsersByTenantIdService.js";
 
-const sendResponse = require("../../utils/common/sendResponse");
+import sendResponse from "../../utils/common/sendResponse.js";
 
 /*
  * Input:  req.user.tenantId (from JWT)
@@ -14,4 +14,4 @@ const getUserByTenantId = async (req, res, next) => {
     return sendResponse(res, 200, true, 'Users fetched successfully', users);
 };
 
-module.exports = { getUserByTenantId };
+export { getUserByTenantId };

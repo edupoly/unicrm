@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const updateItemByItemIdService = async (tenantId, itemId, item, productDetails, serviceDetails) => {
     const result = await prismaDB.item.update({
@@ -32,4 +32,4 @@ const updateItemByItemIdService = async (tenantId, itemId, item, productDetails,
     return result;
 };
 
-module.exports = updateItemByItemIdService;
+export default updateItemByItemIdService;

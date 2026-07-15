@@ -3,4 +3,4 @@ const passwordValidationErrors = {
     INVALID_PASSWORD: 'Password must be at least 8 characters'
 };
 
-module.exports = passwordValidationErrors;
+export default passwordValidationErrors;

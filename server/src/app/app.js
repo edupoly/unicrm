@@ -1,18 +1,18 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
-const { authRouter } = require('../routes/auth');
-const { permissionsRouter } = require('../routes/permissions');
-const { rolesRouter } = require('../routes/roles');
-const { usersRouter } = require('../routes/users');
-const { itemsRouter } = require('../routes/items');
+import { authRouter } from '../routes/auth.js';
+import { permissionsRouter } from '../routes/permissions.js';
+import { rolesRouter } from '../routes/roles.js';
+import { usersRouter } from '../routes/users.js';
+import { itemsRouter } from '../routes/items.js';
 
-const errorHandler = require('../middlewares/errorHandler');
-const { customersRouter } = require('../routes/customers');
+import errorHandler from '../middlewares/errorHandler.js';
+import { customersRouter } from '../routes/customers.js';
 
 // middlewares
 app.use(express.json());
@@ -31,4 +31,4 @@ app.use('/api/customers', customersRouter);
 // error handler
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

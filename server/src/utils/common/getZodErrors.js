@@ -5,4 +5,4 @@ const getZodErrors = (issues) => {
     return issues.map(issue => ({ field: issue.path[0], message: issue.message }));
 };
 
-module.exports = getZodErrors;
+export default getZodErrors;

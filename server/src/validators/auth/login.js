@@ -1,11 +1,11 @@
-const { z } = require('zod');
+import { z } from 'zod';
 
-const { REQUIRED_OBJECT } = require('../../errors/common/commonValidation');
+import { REQUIRED_OBJECT } from '../../errors/common/commonValidation.js';
 
-const emailOrMobileNumberValidator = require('../common/emailOrMobileNumber');
-const passwordValidator = require('../common/password');
-const tenantIdValidator = require('../uuid/tenantId');
-const businessNameValidator = require('../common/businessName');
+import emailOrMobileNumberValidator from '../common/emailOrMobileNumber.js';
+import passwordValidator from '../common/password.js';
+import tenantIdValidator from '../uuid/tenantId.js';
+import businessNameValidator from '../common/businessName.js';
 
 
 const loginValidator = z.object({
@@ -20,4 +20,4 @@ const verifyUserCompanyValidator = z.object({
 }, REQUIRED_OBJECT).strict();
 
 
-module.exports = { loginValidator, verifyUserCompanyValidator };
+export { loginValidator, verifyUserCompanyValidator };

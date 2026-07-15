@@ -1,22 +1,22 @@
-const express = require('express');
+import express from 'express';
 
-const { getGlobalPermissions } = require('../config/permissions');
-const { PERMISSIONS_CONSTANTS } = require('../constants/permissions');
+import { getGlobalPermissions } from '../config/permissions.js';
+import { PERMISSIONS_CONSTANTS } from '../constants/permissions.js';
 
-const { authorize } = require('../middlewares/authorize');
-const validation = require('../middlewares/validation');
+import { authorize } from '../middlewares/authorize.js';
+import validation from '../middlewares/validation.js';
 
 
-const { getRolesByTenantId } = require('../controllers/roles/getRolesByTenantId');
+import { getRolesByTenantId } from '../controllers/roles/getRolesByTenantId.js';
 
-const { addRoleByTenantId } = require('../controllers/roles/addRoleByTenantId');
-const { addRoleByTenantIdValidator } = require('../validators/roles/addRoleByTenantId');
+import { addRoleByTenantId } from '../controllers/roles/addRoleByTenantId.js';
+import { addRoleByTenantIdValidator } from '../validators/roles/addRoleByTenantId.js';
 
-const { updateRoleByRoleId } = require('../controllers/roles/updateRoleByRoleId');
-const { updateRoleByRoleIdValidator } = require('../validators/roles/updateRoleByRoleId');
+import { updateRoleByRoleId } from '../controllers/roles/updateRoleByRoleId.js';
+import { updateRoleByRoleIdValidator } from '../validators/roles/updateRoleByRoleId.js';
 
-const { deleteRoleByRoleId } = require('../controllers/roles/deleteRoleByRoleId');
-const { deleteRoleByRoleIdValidator } = require('../validators/roles/deleteRoleByRoleId');
+import { deleteRoleByRoleId } from '../controllers/roles/deleteRoleByRoleId.js';
+import { deleteRoleByRoleIdValidator } from '../validators/roles/deleteRoleByRoleId.js';
 
 
 const rolesRouter = express.Router();
@@ -30,4 +30,4 @@ rolesRouter.post('/', validation(addRoleByTenantIdValidator), addRoleByTenantId)
 rolesRouter.patch('/', validation(updateRoleByRoleIdValidator), updateRoleByRoleId);
 rolesRouter.delete('/', validation(deleteRoleByRoleIdValidator), deleteRoleByRoleId);
 
-module.exports = { rolesRouter };
+export { rolesRouter };

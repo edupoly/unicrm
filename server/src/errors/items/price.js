@@ -1,6 +1,4 @@
-const priceValidationErrors = {
-    REQUIRED_PRICE: 'Enter the selling price',
-    INVALID_PRICE: 'Price should be greater than 0'
-};
+const REQUIRED_PRICE = 'Enter the selling price';
+const INVALID_PRICE = 'Price should be greater than 0';
 
-module.exports = priceValidationErrors;
+export { REQUIRED_PRICE, INVALID_PRICE };

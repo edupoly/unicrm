@@ -1,6 +1,4 @@
-const customerIdValidationErrors = {
-    REQUIRED_CUSTOMER_ID: 'Customer ID is Required',
-    INVALID_CUSTOMER_ID: 'Customer ID is Invalid'
-};
+const REQUIRED_CUSTOMER_ID = 'Customer ID is Required';
+const INVALID_CUSTOMER_ID = 'Customer ID is Invalid';
 
-module.exports = customerIdValidationErrors;
+export { REQUIRED_CUSTOMER_ID, INVALID_CUSTOMER_ID };

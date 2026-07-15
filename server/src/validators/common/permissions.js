@@ -1,8 +1,10 @@
-const { z } = require("zod");
-const nameValidator = require("./name");
-const permissionIdValidator = require("../uuid/permissionId");
-const { REQUIRED_PERMISSIONS, INVALID_PERMISSIONS } = require("../../errors/common/permissions");
-const descriptionValidator = require("./description");
+import { z } from "zod";
+import nameValidator from "./name.js";
+import permissionIdValidator from "../uuid/permissionId.js";
+import permissionsValidationErrors from "../../errors/common/permissions.js";
+import descriptionValidator from "./description.js";
+
+const { REQUIRED_PERMISSIONS, INVALID_PERMISSIONS } = permissionsValidationErrors;
 
 const permissionSchema = z.object({
     id: permissionIdValidator,
@@ -15,4 +17,4 @@ const permissionsValidator = z
     .array(permissionSchema, REQUIRED_PERMISSIONS)
     .min(1, INVALID_PERMISSIONS);
 
-module.exports = permissionsValidator;
+export default permissionsValidator;

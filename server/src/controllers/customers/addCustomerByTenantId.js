@@ -1,5 +1,5 @@
-const { addCustomerByTenantIdService } = require("../../services/customers/addCustomerByTenantIdService");
-const sendResponse = require("../../utils/common/sendResponse");
+import { addCustomerByTenantIdService } from "../../services/customers/addCustomerByTenantIdService.js";
+import sendResponse from "../../utils/common/sendResponse.js";
 
 const addCustomerByTenantId = async (req, res, next) => {
     const { tenantId, userId } = req.user;
@@ -12,4 +12,4 @@ const addCustomerByTenantId = async (req, res, next) => {
     return sendResponse(res, 201, true, 'Customer created successfully', customer);
 };
 
-module.exports = { addCustomerByTenantId };
+export { addCustomerByTenantId };

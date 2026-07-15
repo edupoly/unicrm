@@ -1,8 +1,8 @@
-const { default: z } = require("zod");
-const { REQUIRED_DISCOUNT } = require("../../../errors/items/discountPercentage");
+import { z } from "zod";
+import { REQUIRED_DISCOUNT } from "../../../errors/items/discountPercentage.js";
 
 const discountPercentageValidator = z
     .number(REQUIRED_DISCOUNT)
     .default(0);
 
-module.exports = discountPercentageValidator;
+export default discountPercentageValidator;

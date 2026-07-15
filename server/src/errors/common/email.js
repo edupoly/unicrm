@@ -3,4 +3,4 @@ const emailValidationErrors = {
     INVALID_EMAIL: 'Enter a valid email id'
 };
 
-module.exports = emailValidationErrors;
+export default emailValidationErrors;

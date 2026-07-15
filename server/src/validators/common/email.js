@@ -1,8 +1,10 @@
-const { z } = require("zod");
-const { REQUIRED_EMAIL, INVALID_EMAIL } = require("../../errors/common/email");
+import { z } from "zod";
+import emailValidationErrors from "../../errors/common/email.js";
+
+const { REQUIRED_EMAIL, INVALID_EMAIL } = emailValidationErrors;
 
 const emailValidator = z
     .string(REQUIRED_EMAIL)
     .email(INVALID_EMAIL);
 
-module.exports = emailValidator;
+export default emailValidator;

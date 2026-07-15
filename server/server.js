@@ -1,20 +1,18 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
 
-const { initPermissions } = require('./src/config/permissions');
+import { initPermissions } from './src/config/permissions.js';
 
-const sendResponse = require('./src/utils/common/sendResponse');
+import sendResponse from './src/utils/common/sendResponse.js';
 
 const { PORT } = process.env;
 
 async function bootstrap() {
     try {
-        // 1. We should fetch global permissions first
         await initPermissions();
         console.log("Permissions loaded into global memory.");
 
-        // 2. Now require app.js safely (routes can access global PERMISSIONS)
-        const app = require('./src/app/app');
+        const { default: app } = await import('./src/app/app.js');
 
         app.get('/health', (req, res) => {
             sendResponse(res, 200, true, `I'm Healthy!`);

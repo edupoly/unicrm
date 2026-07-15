@@ -1,8 +1,8 @@
-const { z } = require("zod");
+import { z } from "zod";
 
-const sendResponse = require("../utils/common/sendResponse");
+import sendResponse from "../utils/common/sendResponse.js";
 
-const { REQUEST_INPUT_BODY } = require("../constants/common");
+import { REQUEST_INPUT_BODY } from "../constants/common.js";
 
 const validation = (schema, input = REQUEST_INPUT_BODY) => {
     return (req, res, next) => {
@@ -14,4 +14,4 @@ const validation = (schema, input = REQUEST_INPUT_BODY) => {
     }
 };
 
-module.exports = validation;
+export default validation;

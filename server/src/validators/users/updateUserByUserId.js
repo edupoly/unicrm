@@ -1,11 +1,11 @@
-const { default: z } = require("zod");
-const nameValidator = require("../common/name");
-const mobileNumberValidator = require("../common/mobile");
-const emailValidator = require("../common/email");
-const passwordValidator = require("../common/password");
-const roleIdValidator = require("../uuid/roleId");
-const userIdValidator = require("../uuid/userId");
-const { REQUIRED_OBJECT } = require("../../errors/common/commonValidation");
+import { z } from "zod";
+import nameValidator from "../common/name.js";
+import mobileNumberValidator from "../common/mobile.js";
+import emailValidator from "../common/email.js";
+import passwordValidator from "../common/password.js";
+import roleIdValidator from "../uuid/roleId.js";
+import userIdValidator from "../uuid/userId.js";
+import { REQUIRED_OBJECT } from "../../errors/common/commonValidation.js";
 
 
 const updateUserByUserIdValidator = z.object({
@@ -17,4 +17,4 @@ const updateUserByUserIdValidator = z.object({
     roleIds: z.array(roleIdValidator).optional()
 }, REQUIRED_OBJECT).strict();
 
-module.exports = { updateUserByUserIdValidator };
+export { updateUserByUserIdValidator };

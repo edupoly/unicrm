@@ -10,8 +10,7 @@ const COMPANY_SELECTION_SESSION_COOKIE_NAME = 'select_org';
 const LOGIN_SUCCESSFUL_MSG = 'Login Successful';
 const REGISTRATION_SUCCESSFUL_MSG = 'Registration Successful';
 
-
-module.exports = {
+export {
     USER_SESSION_TIME_JWT,
     USER_SESSION_TIME_COOKIE,
     COMPANY_SELECTION_SESSION_TIME_JWT,

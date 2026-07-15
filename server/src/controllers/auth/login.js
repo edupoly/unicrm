@@ -1,25 +1,25 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-const { findMultipleUsers, findUser } = require('../../services/auth/login');
-
-
-const sendResponse = require("../../utils/common/sendResponse");
-const getCookieOptions = require('../../utils/common/getCookieOptions');
-const { createJwtToken, verifyJwtToken } = require('../../utils/common/createVerifyJwtToken');
+import { findMultipleUsers, findUser } from '../../services/auth/login.js';
 
 
-const { verifyEmailOrMobile, extractUserData,
+import sendResponse from "../../utils/common/sendResponse.js";
+import getCookieOptions from '../../utils/common/getCookieOptions.js';
+import { createJwtToken, verifyJwtToken } from '../../utils/common/createVerifyJwtToken.js';
+
+
+import { verifyEmailOrMobile, extractUserData,
     getUserSessionJwtPayload,
     getCompanySelectionSessionJwtPayload,
     getResponsePayload
-} = require('../../utils/auth/login');
+} from '../../utils/auth/login.js';
 
 
-const { USER_SESSION_TIME_JWT, USER_SESSION_TIME_COOKIE,
+import { USER_SESSION_TIME_JWT, USER_SESSION_TIME_COOKIE,
     COMPANY_SELECTION_SESSION_TIME_JWT, COMPANY_SELECTION_SESSION_TIME_COOKIE,
     USER_SESSION_COOKIE_NAME, COMPANY_SELECTION_SESSION_COOKIE_NAME,
     LOGIN_SUCCESSFUL_MSG
-} = require('../../constants/auth');
+} from '../../constants/auth.js';
 
 
 const login = async (req, res, next) => {
@@ -149,4 +149,4 @@ const verifyUserCompany = async (req, res, next) => {
     );
 };
 
-module.exports = { login, verifyUserCompany };
+export { login, verifyUserCompany };

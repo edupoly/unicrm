@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const deleteRoleByRoleIdService = async (tenantId, roleId) => {
     const result = await prismaDB.role.delete({
@@ -7,4 +7,4 @@ const deleteRoleByRoleIdService = async (tenantId, roleId) => {
     return result;
 };
 
-module.exports = { deleteRoleByRoleIdService };
+export { deleteRoleByRoleIdService };

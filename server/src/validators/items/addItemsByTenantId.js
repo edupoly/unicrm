@@ -1,16 +1,16 @@
-const { default: z } = require("zod");
+import { z } from "zod";
 
-const nameValidator = require("../common/name");
-const skuValidator = require("../common/items/sku");
-const priceValidator = require("../common/items/price");
-const itemTypeValidator = require("../common/items/itemType");
-const discountPercentageValidator = require("../common/items/discountPercentage");
-const isOnSaleValidator = require("../common/items/isOnSale");
-const customFieldsValidator = require("../common/customFields");
-const productDetailsValidator = require("../common/items/productDetails");
-const serviceDetailsValidator = require("../common/items/serviceDetails");
+import nameValidator from "../common/name.js";
+import skuValidator from "../common/items/sku.js";
+import priceValidator from "../common/items/price.js";
+import itemTypeValidator from "../common/items/itemType.js";
+import discountPercentageValidator from "../common/items/discountPercentage.js";
+import isOnSaleValidator from "../common/items/isOnSale.js";
+import customFieldsValidator from "../common/customFields.js";
+import productDetailsValidator from "../common/items/productDetails.js";
+import serviceDetailsValidator from "../common/items/serviceDetails.js";
 
-const { REQUIRED_OBJECT, REQUIRED_ARRAY, INVALID_ARRAY } = require("../../errors/common/commonValidation");
+import { REQUIRED_OBJECT, REQUIRED_ARRAY, INVALID_ARRAY } from "../../errors/common/commonValidation.js";
 
 const addItemsByTenantIdValidator = z.object({
 
@@ -28,4 +28,4 @@ const addItemsByTenantIdValidator = z.object({
 
 }, REQUIRED_OBJECT).strict();
 
-module.exports = { addItemsByTenantIdValidator };
+export { addItemsByTenantIdValidator };

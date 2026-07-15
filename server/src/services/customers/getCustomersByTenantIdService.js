@@ -1,4 +1,4 @@
-const prismaDB = require("../../config/database");
+import prismaDB from "../../config/database.js";
 
 const getCustomersByTenantIdService = async (tenantId) => {
     const customers = await prismaDB.customer.findMany({
@@ -24,4 +24,4 @@ const getCustomersByTenantIdService = async (tenantId) => {
     return customers;
 };
 
-module.exports = { getCustomersByTenantIdService };
+export { getCustomersByTenantIdService };
