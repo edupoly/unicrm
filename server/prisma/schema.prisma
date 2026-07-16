@@ -55,25 +55,26 @@ model TenantConfig {
 
 // 2. USER ENGINE (Employees & Owners)
 model User {
-  id           String   @id @default(uuid()) @db.Uuid
-  tenantId     String   @map("tenant_id") @db.Uuid
-  name         String   @db.VarChar(255)
-  mobileNumber String   @map("mobile_number") @db.VarChar(20)
+  id           String    @id @default(uuid()) @db.Uuid
+  tenantId     String    @map("tenant_id") @db.Uuid
+  name         String    @db.VarChar(255)
+  mobileNumber String    @map("mobile_number") @db.VarChar(20)
   email        String?   @db.VarChar(255)
-  passwordHash String   @map("password_hash") @db.VarChar(255)
-  isActive     Boolean  @default(true) @map("is_active")
-  createdAt    DateTime @default(now()) @map("created_at")
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  isActive     Boolean   @default(true) @map("is_active")
+  createdAt    DateTime  @default(now()) @map("created_at")
   updatedAt    DateTime? @updatedAt @map("updated_at")
 
   customFields Json @default("{}") @map("custom_fields")
 
   tenant           Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   userRoles        UserRole[]
-  invoices         Invoice[]
   createdItems     Item[]     @relation("ItemCreator")
   updatedItems     Item[]     @relation("ItemUpdater")
   createdCustomers Customer[] @relation("CustomerCreator")
   updatedCustomers Customer[] @relation("CustomerUpdater")
+  createdInvoices  Invoice[]  @relation("InvoiceCreator")
+  updatedInvoices  Invoice[]  @relation("InvoiceUpdater")
 
   @@unique([tenantId, email])
   @@unique([tenantId, mobileNumber])
@@ -150,6 +151,7 @@ model Item {
   itemType ItemType @map("item_type")
 
   // 🌟 Moved up to the Parent table so Services can also have promotions!
+  taxPercentage      Decimal @default(0.00) @map("tax_percentage") @db.Decimal(5, 2)
   discountPercentage Decimal @default(0.00) @map("discount_percentage") @db.Decimal(5, 2)
   isOnSale           Boolean @default(true) @map("is_on_sale")
 
@@ -191,8 +193,8 @@ model ProductDetail {
 
 // Child table holding details unique strictly to time/delivery services
 model ServiceDetail {
-  itemId      String  @id @map("item_id") @db.Uuid
-  durationMin Int     @map("duration_minutes")
+  itemId      String @id @map("item_id") @db.Uuid
+  durationMin Int    @map("duration_minutes")
 
   // Service-specific metadata (e.g., {"travel_required": true, "skills": ["nodejs"]})
   customFields Json @default("{}") @map("custom_fields")
@@ -210,9 +212,9 @@ model Customer {
   address      String? @db.Text
 
   // 🌟 AUDIT FIELDS
-  createdBy String?  @map("created_by") @db.Uuid
-  updatedBy String?  @map("updated_by") @db.Uuid
-  createdAt DateTime @default(now()) @map("created_at")
+  createdBy String?   @map("created_by") @db.Uuid
+  updatedBy String?   @map("updated_by") @db.Uuid
+  createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   customFields Json @default("{}") @map("custom_fields")
@@ -228,23 +230,45 @@ model Customer {
 }
 
 // 5. BILLING ENGINE (Clean & Line-Item Agnostic)
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  PAID
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  UPI
+  CARD
+  BANK_TRANSFER
+}
+
 model Invoice {
-  id            String   @id @default(uuid()) @db.Uuid
-  tenantId      String   @map("tenant_id") @db.Uuid
-  customerId    String   @map("customer_id") @db.Uuid
-  createdBy     String   @map("created_by") @db.Uuid
-  invoiceNumber String   @map("invoice_number") @db.VarChar(50)
-  subtotal      Decimal  @db.Decimal(12, 2)
-  taxAmount     Decimal  @map("tax_amount") @db.Decimal(12, 2)
-  discountTotal Decimal  @map("discount_total") @db.Decimal(12, 2)
-  totalPayable  Decimal  @map("total_payable") @db.Decimal(12, 2)
-  status        String   @db.VarChar(20) // "PAID", "PENDING", "REFUNDED"
-  createdAt     DateTime @default(now()) @map("created_at")
-  customFields  Json     @default("{}") @map("custom_fields")
+  id            String         @id @default(uuid()) @db.Uuid
+  tenantId      String         @map("tenant_id") @db.Uuid
+  customerId    String?        @map("customer_id") @db.Uuid
+  invoiceNumber String?        @map("invoice_number") @db.VarChar(50)
+  subTotal      Decimal        @map("sub_total") @db.Decimal(12, 2)
+  taxTotal      Decimal        @default(0.00) @map("tax_total") @db.Decimal(12, 2)
+  discountTotal Decimal        @default(0.00) @map("discount_total") @db.Decimal(12, 2)
+  grandTotal    Decimal        @map("grand_total") @db.Decimal(12, 2)
+  status        InvoiceStatus  @default(DRAFT)
+  paymentMethod PaymentMethod? @default(CASH) @map("payment_method")
+  paidAt        DateTime?      @map("paid_at")
+  customFields  Json           @default("{}") @map("custom_fields")
+
+  createdBy String?  @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  updatedBy String?   @map("updated_by") @db.Uuid
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   tenant   Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  customer Customer      @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  user     User          @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  customer Customer?     @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  creator  User?         @relation("InvoiceCreator", fields: [createdBy], references: [id], onDelete: Restrict)
+  updater  User?         @relation("InvoiceUpdater", fields: [updatedBy], references: [id], onDelete: Restrict)
   items    InvoiceItem[]
 
   @@unique([tenantId, invoiceNumber])
@@ -252,18 +276,20 @@ model Invoice {
 }
 
 model InvoiceItem {
-  id         String  @id @default(uuid()) @db.Uuid
-  invoiceId  String  @map("invoice_id") @db.Uuid
-  itemId     String  @map("item_id") @db.Uuid // Completely unified relation pointer
-  quantity   Int
-  unitPrice  Decimal @map("unit_price") @db.Decimal(12, 2)
-  totalPrice Decimal @map("total_price") @db.Decimal(12, 2)
+  id                 String  @id @default(uuid()) @db.Uuid
+  invoiceId          String  @map("invoice_id") @db.Uuid
+  itemId             String  @map("item_id") @db.Uuid // Completely unified relation pointer
+  quantity           Int
+  unitPrice          Decimal @map("unit_price") @db.Decimal(12, 2)
+  discountPercentage Decimal @default(0.00) @map("discount_percentage") @db.Decimal(12, 2)
+  taxPercentage      Decimal @default(0.00) @map("tax_percentage") @db.Decimal(5, 2)
+  totalPrice         Decimal @map("total_price") @db.Decimal(12, 2)
 
   customFields Json @default("{}") @map("custom_fields")
 
   invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  item    Item?   @relation(fields: [itemId], references: [id], onDelete: SetNull)
+  item    Item    @relation(fields: [itemId], references: [id], onDelete: Restrict)
 
-  @@unique([invoiceId, itemId]) // Enforces uniqueness while keeping a separate row ID
+  @@index([invoiceId, itemId])
   @@map("invoice_items")
 }
