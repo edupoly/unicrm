@@ -279,6 +279,7 @@ model InvoiceItem {
   id                 String  @id @default(uuid()) @db.Uuid
   invoiceId          String  @map("invoice_id") @db.Uuid
   itemId             String  @map("item_id") @db.Uuid // Completely unified relation pointer
+  itemName           String  @map("item_name") @db.VarChar(255)
   quantity           Int
   unitPrice          Decimal @map("unit_price") @db.Decimal(12, 2)
   discountPercentage Decimal @default(0.00) @map("discount_percentage") @db.Decimal(12, 2)
