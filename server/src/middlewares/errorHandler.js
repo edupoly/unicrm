@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { PrismaClientKnownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { PrismaClientKnownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library.js";
 import pkg from "jsonwebtoken";
 
 import sendResponse from "../utils/common/sendResponse.js";
@@ -26,7 +26,7 @@ const errorHandler = (err, req, res, next) => {
         }
     }
 
-    else if (err instanceof PrismaClientValidationError) {
+    else if (err instanceof PrismaClientValidationError || err.statusCode === 400) {
         return sendResponse(res, 400, false, INVALID_REQUEST);
     }
 
